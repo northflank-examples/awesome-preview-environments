@@ -1,0 +1,51 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  data-and-tables:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python3 -m json.tool data/platforms.json > /dev/null
+      - run: python3 -m json.tool data/databases.json > /dev/null
+      - run: python3 scripts/validate.py
+      - run: python3 scripts/generate.py --check
+
+  examples:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: azure/setup-helm@v5
+      - name: Lint and render the Helm chart
+        run: |
+          helm lint examples/kubernetes-namespace-per-pr/chart
+          helm template preview examples/kubernetes-namespace-per-pr/chart --set app.migrateCommand='{npm,run,migrate}' > /dev/null
+      - name: Lint example workflows
+        run: |
+          bash <(curl -sSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -shellcheck= examples/*/.github/workflows/*.yml .github/workflows/*.yml
+      - name: Parse YAML examples
+        run: |
+          pip install pyyaml
+          python3 -c "import sys, yaml; [list(yaml.safe_load_all(open(f))) for f in sys.argv[1:]]" \
+            examples/argocd-applicationset/previews.yaml examples/gitlab-review-apps/.gitlab-ci.yml
+
+  # Internal links and heading anchors only: deterministic, and what a commit can break.
+  # External links are checked weekly in external-links.yml.
+  internal-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check internal Markdown links and anchors
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --include-fragments --no-progress './**/*.md'
+          fail: true
+          jobSummary: false

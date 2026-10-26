@@ -1,0 +1,62 @@
+# A copy-on-write Postgres branch per pull request with Neon, deleted when the PR closes.
+#
+# Combine with any app preview (Vercel, Netlify, Northflank, your own Kubernetes...) by passing
+# the branch's connection string to it as DATABASE_URL.
+#
+# Required repository secrets:   NEON_API_KEY
+# Required repository variables: NEON_PROJECT_ID
+
+name: preview-database
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+concurrency:
+  group: preview-db-${{ github.event.pull_request.number }}
+
+permissions:
+  contents: read
+
+jobs:
+  create-branch:
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Safety net: Neon deletes the branch after 14 days even if the teardown job never runs.
+      - name: Compute expiry
+        run: echo "EXPIRES_AT=$(date -u --date '+14 days' +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_ENV"
+
+      # Returns the existing branch if it was already created by an earlier push.
+      - id: branch
+        uses: neondatabase/create-branch-action@v6
+        with:
+          project_id: ${{ vars.NEON_PROJECT_ID }}
+          api_key: ${{ secrets.NEON_API_KEY }}
+          branch_name: preview/pr-${{ github.event.pull_request.number }}
+          expires_at: ${{ env.EXPIRES_AT }}
+          # Scale the branch's compute to zero after 5 idle minutes.
+          suspend_timeout: 300
+
+      - name: Run migrations against the branch
+        env:
+          DATABASE_URL: ${{ steps.branch.outputs.db_url }}
+        run: |
+          echo "::add-mask::$DATABASE_URL"
+          # Replace with your migration tool, e.g. npx prisma migrate deploy
+          echo "Run your migrations here"
+
+      # Hand the connection string to your app preview here, e.g. set it as an environment
+      # variable on the platform deploying the app, or pass it to helm with --set.
+
+  delete-branch:
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: neondatabase/delete-branch-action@v3
+        with:
+          project_id: ${{ vars.NEON_PROJECT_ID }}
+          api_key: ${{ secrets.NEON_API_KEY }}
+          branch: preview/pr-${{ github.event.pull_request.number }}

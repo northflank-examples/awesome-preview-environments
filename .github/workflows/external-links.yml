@@ -1,0 +1,31 @@
+name: external-links
+
+# Checks every external link once a week, and on demand from the Actions tab.
+# Not run on push: vendor sites rate-limit or challenge GitHub's datacenter IPs at random,
+# which would fail unrelated commits. A failure here means a link needs updating.
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  external-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # 403 and 429 are accepted: some docs sites block datacenter IPs while serving browsers normally.
+      - name: Check external Markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --max-retries 3
+            --retry-wait-time 5
+            --timeout 30
+            --max-concurrency 16
+            --accept '200..=299,403,429'
+            --exclude 'example\.com'
+            --exclude 'uber\.com'
+            --exclude 'docs\.stackgen\.com'
+            './**/*.md'
+          fail: true

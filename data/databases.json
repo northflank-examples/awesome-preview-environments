@@ -1,0 +1,484 @@
+{
+  "tools": [
+    {
+      "id": "neon",
+      "name": "Neon",
+      "website": "https://neon.com",
+      "preview_docs": "https://neon.com/docs/introduction/branching",
+      "feature_name": "Branching",
+      "github": "https://github.com/neondatabase/neon",
+      "last_verified": "2026-10-26",
+      "summary": "Serverless Postgres whose copy-on-write branches can be created per PR via GitHub Actions or per Vercel preview deployment via the Vercel integrations.",
+      "summary_short": "Copy-on-write Postgres branches per PR or per Vercel preview",
+      "facts": {
+        "engine": {
+          "value": "Postgres",
+          "source": "https://github.com/neondatabase/neon",
+          "quote": "Neon is an open-source serverless Postgres database platform."
+        },
+        "method": {
+          "value": "Copy-on-write branch (full data or schema-only)",
+          "source": "https://neon.com/docs/introduction/branching",
+          "quote": "A branch is a copy-on-write clone of your data."
+        },
+        "per_pr_automation": {
+          "value": "GitHub Actions (create/delete/schema-diff); Vercel integrations",
+          "source": "https://neon.com/docs/guides/neon-managed-vercel-integration",
+          "quote": "this integration creates an isolated database branch for each preview deployment"
+        },
+        "cleanup": {
+          "value": "Yes: on Git branch delete (Vercel), Action on PR close, or TTL",
+          "source": "https://neon.com/docs/introduction/branching",
+          "quote": "Create branches with TTL by setting an expiration date"
+        },
+        "data": {
+          "value": "Parent data by default; schema-only option",
+          "source": "https://neon.com/docs/introduction/branching",
+          "quote": "By default, branches are created with all of the data that existed in the parent branch ... Neon also supports schema-only branching."
+        },
+        "hosting": {
+          "value": "Managed (AWS regions)",
+          "source": "https://neon.com/docs/introduction/regions",
+          "quote": "Neon offers project deployment in multiple AWS regions."
+        },
+        "license": {
+          "value": "Open source (Apache-2.0); managed service",
+          "source": "https://github.com/neondatabase/neon",
+          "quote": "Neon is an open-source serverless Postgres database platform."
+        },
+        "pricing": {
+          "value": "Free plan (10 branches/project); paid usage-based",
+          "source": "https://neon.com/pricing",
+          "quote": "Paid plans are pay-as-you-go: usage is metered hourly and billed at the end of the month, with no monthly minimum."
+        }
+      },
+      "caveats": [
+        "Neon is now offered as part of Databricks; docs refer to the product as 'Lakebase Postgres' (https://neon.com/docs/guides/vercel-overview).",
+        "With the Vercel-Managed integration, branch cleanup follows Vercel's deployment retention, which can delay deletion by months (https://neon.com/docs/guides/vercel-overview).",
+        "The delete-branch GitHub Action is documented for cleaning up 'ephemeral branches after a pull request is merged or closed'; you wire the PR-close trigger yourself (https://neon.com/docs/guides/branching-github-actions).",
+        "Azure regions are deprecated for new projects (https://neon.com/docs/introduction/regions)."
+      ]
+    },
+    {
+      "id": "supabase-branching",
+      "name": "Supabase Branching",
+      "website": "https://supabase.com",
+      "preview_docs": "https://supabase.com/docs/guides/deployment/branching",
+      "feature_name": "Branching (Preview Branches)",
+      "github": "https://github.com/supabase/supabase",
+      "last_verified": "2026-10-26",
+      "summary": "Supabase's GitHub integration creates a separate Supabase instance per Git branch/PR, runs migrations and seed.sql, and deletes preview branches when the PR is merged or closed.",
+      "summary_short": "Separate Supabase instance per Git branch, with migrations and seed",
+      "facts": {
+        "engine": {
+          "value": "Postgres (full Supabase stack: auth, storage, APIs)",
+          "source": "https://supabase.com/docs/guides/deployment/branching",
+          "quote": "a separate environment with its own Supabase instance and API credentials"
+        },
+        "method": {
+          "value": "New instance; migrations + seed.sql applied",
+          "source": "https://supabase.com/docs/guides/deployment/branching/github-integration",
+          "quote": "The migrations in the `migrations` subdirectory of your Supabase directory are automatically run when the branch is created."
+        },
+        "per_pr_automation": {
+          "value": "Yes, Supabase GitHub integration",
+          "source": "https://supabase.com/docs/guides/deployment/branching/github-integration",
+          "quote": "When a new branch is created in GitHub, a corresponding branch is created in Supabase."
+        },
+        "cleanup": {
+          "value": "Yes, preview branches deleted on PR merge/close",
+          "source": "https://supabase.com/docs/guides/deployment/branching",
+          "quote": "automatically deleted when a PR is merged or closed"
+        },
+        "data": {
+          "value": "No prod data by default; seed file; dashboard 'Include data' option",
+          "source": "https://supabase.com/docs/guides/deployment/branching",
+          "quote": "By default, new branches do not start with any data or storage objects from your base project."
+        },
+        "hosting": {
+          "value": "Managed (Supabase Cloud, Pro plan and up)",
+          "source": "https://supabase.com/pricing",
+          "quote": "run a separate development environment off your production project"
+        },
+        "license": {
+          "value": "Open source (Apache-2.0); branching is a platform feature",
+          "source": "https://github.com/supabase/supabase",
+          "quote": "Supabase is a combination of open source tools.",
+          "note": "SPDX Apache-2.0 per GitHub repo metadata."
+        },
+        "pricing": {
+          "value": "$0.01344 per branch-hour; Pro plan and up",
+          "source": "https://supabase.com/pricing",
+          "quote": "$0.01344 per branch, per hour"
+        }
+      },
+      "caveats": [
+        "Persistent branches are not auto-deleted or paused on PR merge/close (https://supabase.com/docs/guides/deployment/branching).",
+        "Branching is not on the Free plan (https://supabase.com/pricing)."
+      ]
+    },
+    {
+      "id": "planetscale",
+      "name": "PlanetScale",
+      "website": "https://planetscale.com",
+      "preview_docs": "https://planetscale.com/docs/vitess/schema-changes/branching",
+      "feature_name": "Branching & deploy requests",
+      "github": "https://github.com/planetscale/cli",
+      "last_verified": "2026-10-26",
+      "summary": "Managed MySQL (Vitess) and Postgres with development branches; Vitess branches are schema-only by default (data via Data Branching from backup) and schema changes merge via deploy requests; per-PR branches are scripted with the pscale CLI in GitHub Actions.",
+      "summary_short": "Schema branches (optionally with data) per PR, scripted with the pscale CLI",
+      "facts": {
+        "engine": {
+          "value": "MySQL (Vitess) and Postgres",
+          "source": "https://planetscale.com/docs/postgres/branching",
+          "quote": "isolated database deployments"
+        },
+        "method": {
+          "value": "Schema-only branch; data branch restored from backup",
+          "source": "https://planetscale.com/docs/vitess/schema-changes/branching",
+          "quote": "Development branches provide isolated copies of your production database schema"
+        },
+        "per_pr_automation": {
+          "value": "DIY: pscale CLI in GitHub Actions (setup-pscale-action)",
+          "source": "https://planetscale.com/docs/vitess/tutorials/github-actions",
+          "quote": "You can use `pscale branch create` to create a branch that matches your GitHub branch name."
+        },
+        "cleanup": {
+          "value": "Manual or scripted; deploy request can auto-delete branch",
+          "source": "https://planetscale.com/docs/vitess/tutorials/github-actions",
+          "quote": "`--auto-delete-branch` deletes the PlanetScale branch once the deploy request completes, so CI branches don't accumulate."
+        },
+        "data": {
+          "value": "Schema-only by default; Data Branching copies latest backup",
+          "source": "https://planetscale.com/docs/vitess/schema-changes/data-branching",
+          "quote": "Creates a database branch with both the **schema and data** from the latest backup of the Base branch"
+        },
+        "hosting": {
+          "value": "Managed; PlanetScale Managed in your AWS/GCP/Azure",
+          "source": "https://planetscale.com/docs/vitess/managed",
+          "quote": "Run PlanetScale in your own AWS, GCP, or Azure account, operated by our team with your data in your cloud."
+        },
+        "license": {
+          "value": "Proprietary service; pscale CLI Apache-2.0",
+          "source": "https://github.com/planetscale/cli",
+          "quote": null,
+          "note": "CLI license (Apache-2.0) from GitHub repo metadata; the database service is proprietary (Vitess itself is OSS)."
+        },
+        "pricing": {
+          "value": "No free tier listed; Postgres from $5/mo; branches billed extra",
+          "source": "https://planetscale.com/docs/postgres/branching",
+          "quote": "New branches incur additional charges."
+        }
+      },
+      "caveats": [
+        "PlanetScale Postgres branches do not use deploy requests; 'There's currently no automated way to merge schema changes between PlanetScale Postgres branches' (https://planetscale.com/docs/postgres/branching).",
+        "Data-seeded branches can't filter out tables/data (no anonymisation) and branches seeded from production are billed as production branches (https://planetscale.com/docs/vitess/schema-changes/data-branching).",
+        "Pricing page lists Postgres PS-5 single-node from $5/month and Vitess PS-10 from $39/month (https://planetscale.com/pricing)."
+      ]
+    },
+    {
+      "id": "xata",
+      "name": "Xata",
+      "website": "https://xata.io",
+      "preview_docs": "https://xata.io/docs/automations/vercel-github-app",
+      "feature_name": "Branching (GitHub App / GitHub Action)",
+      "github": "https://github.com/xataio/xata",
+      "last_verified": "2026-10-26",
+      "summary": "Open-source Postgres platform (Kubernetes/CloudNativePG-based) with copy-on-write branches; a GitHub App or GitHub Action creates a branch per pull request, with optional anonymised production clones.",
+      "summary_short": "Copy-on-write Postgres branches per PR, with anonymised production clones",
+      "facts": {
+        "engine": {
+          "value": "Postgres (vanilla)",
+          "source": "https://xata.io/",
+          "quote": "Xata runs vanilla PostgreSQL with high-performance storage, isolation, and instant branching built in."
+        },
+        "method": {
+          "value": "Copy-on-write branch",
+          "source": "https://xata.io/docs",
+          "quote": "Create copy-on-write database branches in seconds without duplicating storage."
+        },
+        "per_pr_automation": {
+          "value": "Yes, Xata GitHub App or GitHub Action",
+          "source": "https://xata.io/docs/automations/vercel-github-app",
+          "quote": "The Xata GitHub App creates a Xata branch for each pull request"
+        },
+        "cleanup": {
+          "value": "Yes, GitHub App deletes branch on PR close",
+          "source": "https://xata.io/docs/automations/vercel-github-app",
+          "quote": "When the pull request closes, the Xata GitHub App deletes the Xata branch."
+        },
+        "data": {
+          "value": "Prod clone with built-in anonymisation",
+          "source": "https://xata.io/postgres-data-masking",
+          "quote": "Data masking and anonymization for PostgreSQL dev and testing environments"
+        },
+        "hosting": {
+          "value": "Managed cloud, BYOC, or self-hosted OSS",
+          "source": "https://xata.io/pricing",
+          "quote": "Self-host on your own infrastructure."
+        },
+        "license": {
+          "value": "Open source (Apache-2.0); some features closed",
+          "source": "https://github.com/xataio/xata",
+          "quote": "Xata - Open-source Postgres platform with CoW branching"
+        },
+        "pricing": {
+          "value": "OSS free; cloud pay-as-you-go, no per-branch fee",
+          "source": "https://xata.io/pricing",
+          "quote": "No per-branch fees."
+        }
+      },
+      "caveats": [
+        "Xata pivoted from its earlier serverless data platform to a branch-native Postgres platform; the OSS release runs on Kubernetes and the README says it is overkill for a single Postgres instance (https://github.com/xataio/xata).",
+        "Some multi-tenant security features are kept closed source (https://github.com/xataio/xata).",
+        "The documented GitHub Action workflow does not show a PR-close deletion step; the GitHub App does delete on close (https://xata.io/docs/automations/ga-pr).",
+        "Cloud compute from $0.012/hr plus $0.28/GB-month storage; BYOC is quoted (https://xata.io/pricing)."
+      ]
+    },
+    {
+      "id": "dblab-engine",
+      "name": "DBLab Engine (Postgres.ai)",
+      "website": "https://postgres.ai",
+      "preview_docs": "https://postgres.ai/docs/database-lab",
+      "feature_name": "Thin clones / DB Migration Checker",
+      "github": "https://github.com/postgres-ai/database-lab-engine",
+      "last_verified": "2026-10-26",
+      "summary": "Open-source engine you run yourself that creates thin, writable copy-on-write clones (ZFS or LVM) of large Postgres databases in seconds, with a CI component for testing migrations against clones.",
+      "summary_short": "Self-hosted thin clones of large Postgres databases in seconds",
+      "facts": {
+        "engine": {
+          "value": "Postgres",
+          "source": "https://postgres.ai/docs/database-lab",
+          "quote": "cloning of 10 TiB PostgreSQL database takes less than 2 seconds when a single user is using the DBLab Engine instance"
+        },
+        "method": {
+          "value": "Thin clone (copy-on-write via ZFS/LVM2)",
+          "source": "https://postgres.ai/docs/database-lab",
+          "quote": "Thin cloning is possible thanks to copy-on-write capabilities provided by either ZFS filesystem or LVM2"
+        },
+        "per_pr_automation": {
+          "value": "CI via DB Migration Checker GitHub Action (push-triggered)",
+          "source": "https://postgres.ai/docs/database-lab/db-migration-checker",
+          "quote": "a DLE component that enables integration with CI/CD tools to automatically test migrations in CI/CD pipelines"
+        },
+        "cleanup": {
+          "value": "Yes, idle clones auto-deleted (configurable)",
+          "source": "https://postgres.ai/docs/database-lab",
+          "quote": "Automated deletion of clones after a specified number of minutes of inactivity (configurable)"
+        },
+        "data": {
+          "value": "Full-size prod copies; masking/obfuscation options",
+          "source": "https://postgres.ai/docs/database-lab/masking",
+          "quote": "Allows setting up dynamic masking rules without actual data changes."
+        },
+        "hosting": {
+          "value": "Self-hosted (on-prem or cloud)",
+          "source": "https://postgres.ai/docs/database-lab",
+          "quote": "Works well both on-premises and in clouds."
+        },
+        "license": {
+          "value": "Open source (Apache-2.0); paid SE/EE editions",
+          "source": "https://postgres.ai/docs/database-lab",
+          "quote": "DBLab Engine is distributed under Apache 2.0 license."
+        },
+        "pricing": {
+          "value": "OSS free; DBLab SE from $62/mo",
+          "source": "https://postgres.ai/pricing",
+          "quote": "Starting at $62/mo"
+        }
+      },
+      "caveats": [
+        "Clones are aimed at dev/test and CI; the documented migration-checker trigger is a push event, not a PR preview lifecycle (https://postgres.ai/docs/database-lab/db-migration-checker).",
+        "Primary repo is on GitLab (https://gitlab.com/postgres-ai/database-lab); GitHub is a mirror."
+      ]
+    },
+    {
+      "id": "turso",
+      "name": "Turso",
+      "website": "https://turso.tech",
+      "preview_docs": "https://docs.turso.tech/features/branching",
+      "feature_name": "Branching",
+      "github": "https://github.com/tursodatabase/turso",
+      "last_verified": "2026-10-26",
+      "summary": "Managed SQLite-compatible (libSQL/Turso) databases where a branch is a separate database created from an existing one or a point-in-time snapshot; per-PR branches are scripted via the Platform API in GitHub Actions.",
+      "summary_short": "Branch a SQLite-compatible database from an existing one or a point in time",
+      "facts": {
+        "engine": {
+          "value": "SQLite-compatible (Turso / libSQL)",
+          "source": "https://docs.turso.tech/introduction",
+          "quote": "Fully backwards compatible with SQLite"
+        },
+        "method": {
+          "value": "Full copy as separate database; point-in-time option",
+          "source": "https://docs.turso.tech/features/branching",
+          "quote": "A branch is a separate database instance that is created from an existing database."
+        },
+        "per_pr_automation": {
+          "value": "DIY GitHub Actions example via Platform API",
+          "source": "https://docs.turso.tech/features/branching",
+          "quote": "Automating branching is useful for creating a new database for each pull request."
+        },
+        "cleanup": {
+          "value": "No, manual deletion",
+          "source": "https://docs.turso.tech/features/branching",
+          "quote": "You will need to manually delete the database branch when you no longer need it."
+        },
+        "data": {
+          "value": "Copies source data; no anonymisation documented",
+          "source": "https://docs.turso.tech/features/branching",
+          "quote": "A branch is a separate database instance that is created from an existing database."
+        },
+        "hosting": {
+          "value": "Managed (Turso Cloud)",
+          "source": "https://docs.turso.tech/introduction",
+          "quote": "Fully managed platform for Turso and libSQL databases"
+        },
+        "license": {
+          "value": "Database MIT; Turso Cloud proprietary",
+          "source": "https://github.com/tursodatabase/turso",
+          "quote": null,
+          "note": "MIT per GitHub repo license metadata; branching is a Turso Cloud feature."
+        },
+        "pricing": {
+          "value": "Free plan (100 DBs); branching adds no usage cost",
+          "source": "https://turso.tech/pricing",
+          "quote": "Point-in-time restore and database branching do not add usage cost."
+        }
+      },
+      "caveats": [
+        "Branches count towards the plan's database quota (https://docs.turso.tech/features/branching).",
+        "The sample workflow triggers on ref creation, not PR events (https://docs.turso.tech/features/branching)."
+      ]
+    },
+    {
+      "id": "prisma-postgres",
+      "name": "Prisma Postgres",
+      "website": "https://www.prisma.io/postgres",
+      "preview_docs": "https://www.prisma.io/docs/guides/integrations/github-actions",
+      "feature_name": "Preview databases (GitHub Actions) / Compute branch previews",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Managed Postgres without data branching; previews get a fresh database per PR (GitHub Actions guide) or per Git branch on Prisma Compute, with migrations and seed data applied.",
+      "summary_short": "Fresh, migrated and seeded Postgres database per PR",
+      "facts": {
+        "engine": {
+          "value": "Postgres 17",
+          "source": "https://www.prisma.io/docs/postgres",
+          "quote": "Prisma Postgres is managed PostgreSQL 17 with PgBouncer pooling on every plan"
+        },
+        "method": {
+          "value": "New empty database per PR, migrated and seeded",
+          "source": "https://www.prisma.io/docs/guides/integrations/github-actions",
+          "quote": "applies your checked-in migrations, seeds it with sample data"
+        },
+        "per_pr_automation": {
+          "value": "GitHub Actions guide; Prisma Compute branch previews",
+          "source": "https://www.prisma.io/docs/guides/integrations/github-actions",
+          "quote": "The workflow provisions a database for every pull request"
+        },
+        "cleanup": {
+          "value": "Yes, on PR close (workflow) or Git branch delete (Compute)",
+          "source": "https://www.prisma.io/docs/guides/integrations/github-actions",
+          "quote": "When the pull request is closed, the workflow deletes the database."
+        },
+        "data": {
+          "value": "Seeded only; production data not copied",
+          "source": "https://www.prisma.io/docs/compute/branching",
+          "quote": "its own new database; production data is not copied"
+        },
+        "hosting": {
+          "value": "Managed",
+          "source": "https://www.prisma.io/docs/postgres",
+          "quote": "Prisma Postgres is managed PostgreSQL 17 with PgBouncer pooling on every plan"
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial service; no open-source license is published (inferred)."
+        },
+        "pricing": {
+          "value": "Free: 50 DBs, 2 GB; paid billed per operation",
+          "source": "https://www.prisma.io/pricing",
+          "quote": "200k operations / month; 2 GB storage; 50 databases"
+        }
+      },
+      "caveats": [
+        "No copy-on-write/data branching; each preview starts from a new database (https://www.prisma.io/docs/compute/branching).",
+        "Compute per-branch databases apply only to databases declared in the Prisma Composer (Early Access) module (https://www.prisma.io/docs/compute/branching)."
+      ]
+    },
+    {
+      "id": "tonic-structural",
+      "name": "Tonic Structural",
+      "website": "https://www.tonic.ai",
+      "preview_docs": "https://docs.tonic.ai/app/",
+      "feature_name": "Structural (de-identification & subsetting)",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Commercial test-data platform that de-identifies, masks and subsets production data from many databases into realistic datasets for staging/dev; it feeds preview databases rather than provisioning them per PR.",
+      "summary_short": "De-identifies and subsets production data for non-production databases",
+      "facts": {
+        "engine": {
+          "value": "Postgres, MySQL, SQL Server, Oracle, MongoDB, more",
+          "source": "https://www.tonic.ai/products/tonic-structural",
+          "quote": "native connectors to all the leading relational and NoSQL databases, data warehouses, lakehouses, and file types."
+        },
+        "method": {
+          "value": "De-identified / subsetted copy of production",
+          "source": "https://docs.tonic.ai/app/",
+          "quote": "The Tonic Structural platform creates safe, realistic datasets to use in staging environments or for local development."
+        },
+        "per_pr_automation": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No documented per-PR integration; vendor mentions CI/CD pipeline integration generally."
+        },
+        "cleanup": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not documented; Structural writes datasets, does not manage preview DB lifecycle."
+        },
+        "data": {
+          "value": "Prod-derived, masked/synthesized, subsetting",
+          "source": "https://www.tonic.ai/products/tonic-structural",
+          "quote": "Automatically detect PII and PHI throughout your data"
+        },
+        "hosting": {
+          "value": "Tonic Cloud or self-hosted",
+          "source": "https://www.tonic.ai/products/tonic-structural",
+          "quote": "Deploy a self-hosted instance of Structural, or work with your data in our Cloud offering."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial service; no open-source license is published (inferred)."
+        },
+        "pricing": {
+          "value": "Custom annual pricing by source-data volume",
+          "source": "https://www.tonic.ai/pricing",
+          "quote": "Annual pricing for Tonic Structural is determined by the Plan you select and the amount of source data connected to Tonic."
+        }
+      },
+      "caveats": [
+        "Tonic Ephemeral (its on-demand ephemeral database product) is no longer in Tonic's docs and its product URL redirects to the homepage; see excluded.",
+        "No free tier listed for Structural (https://www.tonic.ai/pricing)."
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "name": "Tonic Ephemeral",
+      "reason": "No longer present in Tonic docs (docs.tonic.ai/ephemeral 404, not in sitemap) and product URL redirects to homepage; appears discontinued (not confirmed by an announcement).",
+      "source": "https://docs.tonic.ai/sitemap.md"
+    },
+    {
+      "name": "MongoDB Atlas",
+      "reason": "No documented database branching / per-PR preview feature found; skipped per scope.",
+      "source": "https://www.mongodb.com/docs/atlas/"
+    }
+  ]
+}

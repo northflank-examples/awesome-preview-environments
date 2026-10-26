@@ -1,0 +1,33 @@
+# Set by the workflow
+image:
+  repository: ghcr.io/your-org/your-app
+  tag: latest
+host: pr-1.preview.example.com
+
+app:
+  port: 8080
+  # Run migrations (and seed data) before the app starts. Leave empty to skip.
+  migrateCommand: []
+  # e.g. ["npm", "run", "db:migrate"]
+  resources:
+    requests: { cpu: 100m, memory: 128Mi }
+    limits: { cpu: 500m, memory: 512Mi }
+
+postgres:
+  image: postgres:17
+  database: app
+  user: app
+  resources:
+    requests: { cpu: 100m, memory: 256Mi }
+    limits: { cpu: 500m, memory: 512Mi }
+
+ingress:
+  className: nginx
+  # Name of a wildcard TLS secret (*.preview.example.com) in the namespace. Leave empty for HTTP only.
+  tlsSecretName: ""
+
+# Hard ceiling for everything in this preview's namespace.
+quota:
+  cpu: "2"
+  memory: 2Gi
+  pods: "10"

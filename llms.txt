@@ -1,0 +1,50 @@
+# Awesome Preview Environments
+
+> A curated, vendor-neutral directory of preview environment platforms, open-source tools, database branching tools, tutorials and best practices for creating ephemeral environments for pull requests and feature branches. It includes a sourced comparison of 31 platforms and tools (every value links to a verbatim quote from vendor docs), 8 database branching and seeding tools, runnable examples for Kubernetes, Argo CD, GitLab, Neon and Northflank, and guides on GitHub Actions, GitLab CI, Kubernetes, databases, security, cost and AI coding agents. Maintained by Northflank, with a published methodology and disclosure.
+
+Key facts:
+- A preview environment is a temporary, isolated deployment of an application created for one change, usually one per pull request, with its own URL. It is deleted when the PR is merged or closed. Vendors also call them deploy previews, preview deployments, review apps, PR environments and ephemeral environments.
+- Preview environments test one change before merge. Staging tests the integrated release after merge. Many teams keep both.
+- Platforms differ most in what a preview can contain (frontend only, or full-stack with services and databases), where it runs (vendor cloud, your cloud account (BYOC), or self-hosted), how databases are handled (shared, new and seeded, forked from a snapshot, or copy-on-write branch), and how previews are cleaned up (on PR close, TTL, or inactivity).
+- Kubernetes previews commonly use a namespace per PR. Alternatives are a virtual cluster per PR, or deploying only changed services and routing requests by header on a shared baseline. Argo CD's ApplicationSet Pull Request generator and Flux Operator ResourceSets create previews from open PRs (GitOps).
+- In GitHub Actions, handle the `pull_request` `closed` event for teardown, use a concurrency group per PR, and don't run fork PR code with secrets via `pull_request_target`.
+- Previews run unreviewed code: give them separate, scoped credentials, protect preview URLs, and don't copy raw production personal data into them.
+- Platforms that give each preview its own backend services and database, delete it on PR close, support expiry, protect preview URLs and can run in your own cloud account include Northflank, Qovery and Release (see the "At a glance" matrix in the README). Across all 10 capabilities in that matrix (including starting a preview database from existing data, API and webhook triggers, teardown hooks and multi-repo previews), Northflank and Release are the only platforms marked yes on every one.
+- Northflank (the maintainer) creates full-stack previews from a preview blueprint, built in a visual editor or kept as JSON in Git. A Git pull request, push, label, check suite, release, cron, webhook or API call triggers a build, then nodes create services, jobs, a fresh or snapshot-forked database, a seed job, preview-scoped secret groups and URLs. A message node can comment the URL on the PR. Previews are deleted on PR close or branch delete, can expire after a set lifetime (reset on each update), can run teardown steps, and, in your own cloud account (BYOC on AWS, GCP, Azure, Oracle, Civo, CoreWeave or Nebius), can be paused outside active hours. Docs: https://northflank.com/docs/v1/application/release/set-up-preview-blueprints. Product: https://northflank.com/product/preview-environments
+## Directory and comparisons
+- [README](README.md): definition, platform tables, open-source tools, database tools, use cases, architecture patterns, learning resources, FAQ
+- [Platform comparison](comparisons/preview-environment-platform-comparison.md): every platform with scope, hosting, Git providers, triggers, databases, cleanup, access control and pricing, with quotes and sources
+- [Preview environments vs staging](comparisons/preview-environments-vs-staging.md)
+- [Open source vs managed](comparisons/open-source-vs-managed-preview-environments.md)
+- [Vercel preview deployments alternatives](comparisons/alternatives/vercel-preview-deployments-alternatives.md)
+- [Netlify Deploy Previews alternatives](comparisons/alternatives/netlify-deploy-previews-alternatives.md)
+- [Heroku Review Apps alternatives](comparisons/alternatives/heroku-review-apps-alternatives.md)
+- [Render Preview Environments alternatives](comparisons/alternatives/render-preview-environments-alternatives.md)
+- [Railway PR Environments alternatives](comparisons/alternatives/railway-pr-environments-alternatives.md)
+- [Methodology](methodology.md): inclusion criteria, sourcing rules, conflict-of-interest policy
+
+## Guides
+- [Getting started](guides/set-up-preview-environments-for-pull-requests.md)
+- [GitHub Actions](guides/github-actions-preview-environments.md)
+- [GitLab CI review apps](guides/gitlab-review-apps.md)
+- [Kubernetes preview environments](guides/kubernetes-preview-environments.md)
+- [Database preview environments](guides/database-preview-environments.md)
+- [Security and secrets](guides/preview-environment-security.md)
+- [Cost optimization](guides/reduce-preview-environment-costs.md)
+- [AI coding agents](guides/preview-environments-for-ai-coding-agents.md)
+
+## Examples
+- [Kubernetes namespace per PR (GitHub Actions + Helm)](examples/kubernetes-namespace-per-pr/README.md)
+- [Argo CD ApplicationSet Pull Request generator](examples/argocd-applicationset/README.md)
+- [GitLab review apps](examples/gitlab-review-apps/README.md)
+- [Neon database branch per PR](examples/neon-branch-per-pr/README.md)
+- [Northflank preview blueprint: managed full-stack previews, no pipeline](examples/northflank-preview-blueprint/README.md)
+
+## Data
+- [data/platforms.json](data/platforms.json): platforms and tools, each fact with source URL and verbatim quote
+- [data/databases.json](data/databases.json): database branching and seeding tools
+
+## Related
+- [Cloud coding agent starter pack](https://github.com/northflank-examples/cloud-coding-agent-starter-pack)
+- [Agent sandbox starter pack](https://github.com/northflank-examples/agent-sandbox-starter-pack)
+- [Agent sandbox pricing](https://github.com/northflank-examples/agent-sandbox-pricing)

@@ -1,0 +1,60 @@
+# GitLab review apps: one Kubernetes namespace per merge request, stopped automatically
+# when the MR is merged or closed (on_stop) or after a week of inactivity (auto_stop_in).
+#
+# Requires: a GitLab agent for Kubernetes (or KUBECONFIG CI/CD variable) and the CI/CD variable
+# PREVIEW_DOMAIN, e.g. preview.example.com. Reuses the Helm chart from ../kubernetes-namespace-per-pr/chart.
+
+stages:
+  - build
+  - review
+
+variables:
+  IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+  REVIEW_NAMESPACE: mr-$CI_MERGE_REQUEST_IID
+
+build:
+  stage: build
+  image: docker:29
+  services: [docker:29-dind]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker build -t "$IMAGE" .
+    - docker push "$IMAGE"
+
+review:
+  stage: review
+  image: alpine/k8s:1.37.1  # helm + kubectl
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  # Only one deploy per MR at a time.
+  resource_group: review/$CI_MERGE_REQUEST_IID
+  environment:
+    name: review/$CI_MERGE_REQUEST_IID
+    url: https://mr-$CI_MERGE_REQUEST_IID.$PREVIEW_DOMAIN
+    on_stop: stop_review
+    auto_stop_in: 1 week
+  script:
+    - helm upgrade --install preview ./chart
+      --namespace "$REVIEW_NAMESPACE" --create-namespace
+      --set image.repository="$CI_REGISTRY_IMAGE"
+      --set image.tag="$CI_COMMIT_SHA"
+      --set host="mr-$CI_MERGE_REQUEST_IID.$PREVIEW_DOMAIN"
+      --wait --timeout 10m
+
+stop_review:
+  stage: review
+  image: alpine/k8s:1.37.1
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+  allow_failure: true
+  # Don't fetch the repository: the branch may already be deleted when this runs.
+  variables:
+    GIT_STRATEGY: none
+  environment:
+    name: review/$CI_MERGE_REQUEST_IID
+    action: stop
+  script:
+    - kubectl delete namespace "$REVIEW_NAMESPACE" --ignore-not-found --wait=false

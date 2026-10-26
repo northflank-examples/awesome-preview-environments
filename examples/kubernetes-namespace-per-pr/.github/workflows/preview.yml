@@ -1,0 +1,106 @@
+# One preview environment per pull request, on any Kubernetes cluster.
+#
+# opened / synchronize / reopened -> build the image, deploy the chart into namespace pr-<number>,
+#                                    comment the preview URL on the PR
+# closed (merged or not)          -> delete the namespace and everything in it
+#
+# Required repository secrets:
+#   KUBE_CONFIG     kubeconfig for a service account allowed to create namespaces and deploy
+# Required repository variables:
+#   PREVIEW_DOMAIN  wildcard domain pointing at your ingress controller, e.g. preview.example.com
+
+name: preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+# One run per PR at a time; a new push cancels the previous deploy, but never a teardown.
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: ${{ github.event.action != 'closed' }}
+
+permissions:
+  contents: read
+  packages: write
+  pull-requests: write
+
+env:
+  NAMESPACE: pr-${{ github.event.pull_request.number }}
+  IMAGE: ghcr.io/${{ github.repository }}  # must be lowercase; hard-code it if your org/repo name isn't
+  HOST: pr-${{ github.event.pull_request.number }}.${{ vars.PREVIEW_DOMAIN }}
+
+jobs:
+  deploy:
+    # Fork PRs don't get secrets on `pull_request`, so skip them rather than fail.
+    # Don't switch to `pull_request_target` to work around this: it runs untrusted code with secrets.
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: https://${{ env.HOST }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE }}:${{ github.event.pull_request.head.sha }}
+
+      - uses: azure/setup-helm@v5
+
+      - name: Write kubeconfig
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        run: |
+          mkdir -p ~/.kube
+          printf '%s' "$KUBE_CONFIG" > ~/.kube/config
+          chmod 600 ~/.kube/config
+
+      - name: Deploy
+        run: |
+          helm upgrade --install preview ./chart \
+            --namespace "$NAMESPACE" --create-namespace \
+            --set image.repository="$IMAGE" \
+            --set image.tag="${{ github.event.pull_request.head.sha }}" \
+            --set host="$HOST" \
+            --wait --timeout 10m
+          kubectl label namespace "$NAMESPACE" preview=true pr="${{ github.event.pull_request.number }}" --overwrite
+
+      - name: Comment the preview URL
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const marker = '<!-- preview-url -->';
+            const body = `${marker}\nPreview: https://${process.env.HOST}\nCommit: ${context.payload.pull_request.head.sha.slice(0, 7)}`;
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo, issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body?.startsWith(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ ...context.repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+            }
+
+  teardown:
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write kubeconfig
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        run: |
+          mkdir -p ~/.kube
+          printf '%s' "$KUBE_CONFIG" > ~/.kube/config
+          chmod 600 ~/.kube/config
+
+      - name: Delete the namespace
+        run: kubectl delete namespace "$NAMESPACE" --ignore-not-found --wait=false

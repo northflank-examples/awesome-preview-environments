@@ -1,0 +1,65 @@
+# GitOps preview environments with the Argo CD ApplicationSet Pull Request generator.
+#
+# Argo CD polls GitHub for open PRs labelled `preview` and creates one Application per PR,
+# deploying the Helm chart from ../kubernetes-namespace-per-pr/chart into namespace pr-<number>.
+# When the PR is closed or the label is removed, the Application is deleted and its resources pruned.
+#
+# Your CI still builds and pushes the image tagged with the PR's head commit SHA.
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: previews
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - pullRequest:
+        github:
+          owner: your-org
+          repo: your-app
+          # Secret in the argocd namespace with a GitHub token that can read the repository's PRs.
+          tokenRef:
+            secretName: github-token
+            key: token
+          # Only PRs with this label get a preview.
+          labels:
+            - preview
+        # How often to poll GitHub. Add a webhook to Argo CD to react faster.
+        requeueAfterSeconds: 120
+  template:
+    metadata:
+      name: "your-app-pr-{{.number}}"
+      labels:
+        preview: "true"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/your-org/your-app.git
+        targetRevision: "{{.head_sha}}"
+        path: chart
+        helm:
+          parameters:
+            - name: image.repository
+              value: ghcr.io/your-org/your-app
+            - name: image.tag
+              value: "{{.head_sha}}"
+            - name: host
+              value: "pr-{{.number}}.preview.example.com"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "pr-{{.number}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        retry:
+          # The image may still be building when the PR is first seen.
+          limit: 10
+          backoff:
+            duration: 30s
+            factor: 2
+            maxDuration: 10m

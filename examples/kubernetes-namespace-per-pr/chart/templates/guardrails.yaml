@@ -1,0 +1,27 @@
+# Cap what one preview can consume, so a runaway PR can't starve the cluster.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: preview-quota
+spec:
+  hard:
+    limits.cpu: {{ .Values.quota.cpu | quote }}
+    limits.memory: {{ .Values.quota.memory | quote }}
+    pods: {{ .Values.quota.pods | quote }}
+---
+# Only traffic from inside this namespace and from the ingress controller is allowed in.
+# Other previews (other namespaces) can't reach this one's database or app.
+# Requires a CNI that enforces NetworkPolicy (Calico, Cilium, ...).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: isolate-preview
+spec:
+  podSelector: {}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector: {}
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx

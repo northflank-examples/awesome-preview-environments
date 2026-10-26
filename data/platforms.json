@@ -1,0 +1,2830 @@
+{
+  "platforms": [
+    {
+      "id": "northflank",
+      "name": "Northflank",
+      "category": "full-stack",
+      "website": "https://northflank.com/product/preview-environments",
+      "preview_docs": "https://northflank.com/docs/v1/application/release/set-up-preview-blueprints",
+      "feature_name": "Preview blueprints",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Full-stack container platform. A preview blueprint, built in a visual editor or as JSON kept in Git, builds each pull request or branch and deploys its services, jobs, databases, volumes, secret groups and URLs as an isolated preview environment, on Northflank's cloud or in your own cloud account.",
+      "summary_short": "Visual blueprint per PR: services, jobs, fresh or forked databases, scoped secrets and URLs; managed or BYOC",
+      "facts": {
+        "scope": {
+          "value": "Full-stack: services, jobs, databases, volumes, secret groups, URLs",
+          "source": "https://northflank.com/docs/v1/application/release/set-up-preview-blueprints",
+          "quote": "Each preview environment is an isolated instance of your application with its own services, databases, and URLs."
+        },
+        "hosting": {
+          "value": "Managed, BYOC in your cloud account, or your own cluster (BYOK)",
+          "source": "https://northflank.com/docs/v1/application/bring-your-own-cloud/use-other-cloud-providers-with-northflank",
+          "quote": "Bring your own cloud (BYOC) runs Northflank workloads in your cloud account...You can also import an existing Kubernetes cluster (BYOK) for Northflank to manage."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket, Azure DevOps; self-hosted GitLab, GHES, Gitea, Forgejo",
+          "source": "https://northflank.com/docs/v1/application/getting-started/link-your-git-account",
+          "quote": "Northflank integrates with GitHub, GitLab, Bitbucket, Azure DevOps, and Cursor Origin to build and deploy code from your repositories."
+        },
+        "trigger": {
+          "value": "PR, push, PR label, check suite, release, cron, webhook, API or manual run",
+          "source": "https://northflank.com/docs/v1/application/release/set-up-preview-blueprints",
+          "quote": "Preview blueprints can create or update environments from Git events, webhook requests, or a schedule."
+        },
+        "databases": {
+          "value": "Fresh database per preview, forked from a snapshot, seeded by a job, or shared",
+          "source": "https://northflank.com/docs/v1/application/release/set-up-preview-blueprints",
+          "quote": "Build your application, provision a fresh database for the preview, deploy the application, and inject the database credentials....Alternatively, fork your database from a snapshot to restore pre-seeded data more efficiently."
+        },
+        "cleanup": {
+          "value": "On PR close or branch delete, plus optional expiry (resets on update) and teardown steps",
+          "source": "https://northflank.com/docs/v1/application/release/manage-preview-blueprints",
+          "quote": "Git providers can also request preview deletion when a pull request closes or its branch is deleted."
+        },
+        "access": {
+          "value": "Per-port IP policies, basic auth or SSO",
+          "source": "https://northflank.com/docs/v1/application/network/add-security-policies-for-ports",
+          "quote": "To configure a port-wide security policy, expand the custom domains & security rules menu for a port and add a new IP policy, credentials, or select an organisation for SSO access control."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial service; no open-source license is published."
+        },
+        "pricing": {
+          "value": "Previews billed as normal per-second compute; free Sandbox tier",
+          "source": "https://northflank.com/pricing",
+          "quote": "Up to $20 a month of free resources on Northflank Cloud, across 2 services, 2 jobs, and 1 database."
+        },
+        "on_demand_triggers": {
+          "value": "PR label, webhook, API, cron, manual run",
+          "source": "https://northflank.com/docs/v1/application/release/set-up-preview-blueprints",
+          "quote": "Starts a preview run for a pull request with matching labels...Starts a preview run on a UTC schedule...Starts a preview run from a GET or POST request"
+        },
+        "data_copy": {
+          "value": "Fork a database from a snapshot",
+          "source": "https://northflank.com/docs/v1/application/release/set-up-preview-blueprints",
+          "quote": "Alternatively, fork your database from a snapshot to restore pre-seeded data more efficiently."
+        },
+        "teardown_hooks": {
+          "value": "Teardown specification runs on preview deletion",
+          "source": "https://northflank.com/docs/v1/application/release/set-up-preview-blueprints",
+          "quote": "Add a teardown specification for cleanup when a preview environment is deleted. Use it for external resources or cleanup jobs that normal preview deletion does not handle."
+        },
+        "multi_repo": {
+          "value": "Multiple Git triggers and build nodes in one blueprint",
+          "source": "https://northflank.com/docs/v1/application/release/run-and-manage-workflows",
+          "quote": "This request sets `frontend` to branch `feature` and `backend` to branch `develop`"
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "yes",
+        "pr_close": "yes",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "yes",
+        "teardown_hooks": "yes",
+        "multi_repo": "yes"
+      },
+      "caveats": [
+        "Active hours (pause previews outside working hours, resume in the morning) is only available for projects in your own cloud account (https://northflank.com/docs/v1/application/release/set-up-preview-blueprints).",
+        "A teardown specification can clean up external resources, such as OpenTofu-managed infrastructure, when a preview is deleted (https://northflank.com/docs/v1/application/release/set-up-preview-blueprints).",
+        "With GitOps and 'use branch contents', each preview runs the blueprint file from its own branch, so a PR can change its own preview infrastructure (https://northflank.com/docs/v1/application/release/set-up-preview-blueprints).",
+        "A message node can comment the preview URL on the pull request, or post it to Slack or a webhook (https://northflank.com/docs/v1/application/infrastructure-as-code/template-nodes).",
+        "Webhook-triggered previews: anyone with the webhook URL can request a preview run, so treat it as a credential (https://northflank.com/docs/v1/application/release/set-up-preview-blueprints)."
+      ]
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "category": "frontend",
+      "website": "https://vercel.com",
+      "preview_docs": "https://vercel.com/docs/deployments/environments#preview-environment-pre-production",
+      "feature_name": "Preview Deployments",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Managed frontend cloud that builds an immutable preview deployment, with its own URL, for every push to a non-production branch, every pull request, or every CLI deploy without --prod.",
+      "summary_short": "Preview deployment per push/PR for frontends and serverless functions",
+      "facts": {
+        "scope": {
+          "value": "Frontend + serverless functions",
+          "source": "https://vercel.com/docs/functions",
+          "quote": "When you deploy your application, Vercel automatically sets up the tools and optimizations for your chosen framework. It ensures low latency by routing traffic through Vercel's CDN, and placing your functions in a specific region when you need more control over data locality."
+        },
+        "hosting": {
+          "value": "Managed (Vercel cloud)",
+          "source": "https://vercel.com/docs/deployments/environments",
+          "quote": "Preview environments allow you to deploy and test changes in a live setting, without affecting your production site."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket, Origin, Azure Pipelines; CLI for others",
+          "source": "https://vercel.com/docs/git",
+          "quote": "Vercel allows for automatic deployments on every branch push and merges onto the production branch of your GitHub, GitLab, Bitbucket, Origin, and Azure DevOps Pipelines projects."
+        },
+        "trigger": {
+          "value": "Any non-production branch push, PR, or CLI deploy",
+          "source": "https://vercel.com/docs/deployments/environments",
+          "quote": "Push a commit to a branch that is not your production branch (commonly main)...Create a pull request (PR) on GitHub, GitLab, Bitbucket, or Origin"
+        },
+        "databases": {
+          "value": "Per-preview Neon branch via Marketplace integration",
+          "source": "https://vercel.com/marketplace/neon",
+          "quote": "Connects your Vercel project to your Neon database to create a database branch for each preview deployment."
+        },
+        "cleanup": {
+          "value": "Retention policy: previews deleted after 180 days (Pro) / 30 days (Hobby)",
+          "source": "https://vercel.com/docs/deployment-retention",
+          "quote": "| Hobby | 30 days | 30 days | 30 days | 30 days | ... | Pro and Enterprise | 30 days | 90 days | 180 days | 1 year |",
+          "note": "Columns are Canceled / Errored / Pre-Production / Production. Not deleted on PR close: the latest preview for a branch is kept while the branch is active (not deleted, PR not merged/closed). Retention is configurable per team/project."
+        },
+        "access": {
+          "value": "Vercel Authentication (all plans); password (Pro add-on); SSO/IPs (Enterprise)",
+          "source": "https://vercel.com/docs/deployment-protection",
+          "quote": "Vercel Authentication: Restricts access to only Vercel users with suitable access rights ... Password Protection: ... Available on Pro for $20 per month per protected project ... Trusted IPs: ... Available on the Enterprise plan"
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial managed service; vendor publishes no source code or license for the platform itself (inferred, no explicit license statement fetched)."
+        },
+        "pricing": {
+          "value": "Unlimited deployments on all plans; Hobby free, Pro $20/mo",
+          "source": "https://vercel.com/pricing",
+          "quote": "Unlimited Deployments",
+          "note": "Pricing page lists Hobby at $0/mo and Pro at $20/mo; 'Unlimited Deployments' shown as Included on Hobby, Pro and Enterprise. Function/compute usage billed per plan."
+        },
+        "on_demand_triggers": {
+          "value": "CLI, Deploy Hooks (webhook), REST API",
+          "source": "https://vercel.com/docs/deployments/environments",
+          "quote": "By default, Vercel creates a preview deployment when you: ... Deploy using the CLI without the `--prod` flag, for example just `vercel`",
+          "note": "Deploy Hooks: 'Deploy Hooks allow you to create URLs that accept HTTP `POST` requests to trigger deployments ... uniquely linked to your project, repository, and branch' (https://vercel.com/docs/deploy-hooks); a hook on a non-production branch produces a preview. Docs index describes creating 'preview and production deployments on Vercel from Git, Vercel CLI, or the REST API'."
+        },
+        "data_copy": {
+          "value": "Neon DB branch per preview (Marketplace)",
+          "source": "https://vercel.com/marketplace/neon",
+          "quote": "Connects your Vercel project to your Neon database to create a database branch for each preview deployment.",
+          "note": "Third-party Marketplace integration (Neon), not a Vercel-native database; Neon branches are copies of the parent DB."
+        },
+        "teardown_hooks": {
+          "value": "deployment.cleanup webhook only",
+          "source": "https://vercel.com/docs/webhooks/webhooks-api",
+          "quote": "deployment.cleanup ... Occurs whenever a deployment is permanently deleted after the recovery period. ... This webhook does not fire immediately when a deployment is marked for deletion",
+          "note": "A notification you must handle yourself (fires after a 30-day recovery period); no built-in pre-delete job or teardown spec."
+        },
+        "multi_repo": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Microfrontends combine separate projects by path routing; a single preview built from several repositories is not documented."
+        }
+      },
+      "capabilities": {
+        "backend": "partial",
+        "database": "partial",
+        "own_cloud": "no",
+        "pr_close": "no",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "partial",
+        "teardown_hooks": "partial",
+        "multi_repo": null
+      },
+      "caveats": [
+        "Previews are protected by 'Standard Protection' scope when enabled; password protection costs $20/month per project on Pro and is unavailable on Hobby (https://vercel.com/docs/deployment-protection).",
+        "Pull requests from forks of public repos require authorization from a team member before deploying (https://vercel.com/docs/git).",
+        "Hobby teams cannot deploy from private repos in GitHub orgs / GitLab groups / Bitbucket workspaces (https://vercel.com/docs/git).",
+        "Neon branching comes from the Neon Marketplace integration, not a built-in Vercel database (https://vercel.com/marketplace/neon)."
+      ]
+    },
+    {
+      "id": "netlify",
+      "name": "Netlify",
+      "category": "frontend",
+      "website": "https://www.netlify.com",
+      "preview_docs": "https://docs.netlify.com/deploy/deploy-types/deploy-previews/",
+      "feature_name": "Deploy Previews",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Managed web platform that automatically builds a Deploy Preview with a unique URL for each pull/merge request (and agent run), including functions, with an on-page feedback drawer.",
+      "summary_short": "Deploy Preview per PR for frontends and functions, with a per-preview database branch",
+      "facts": {
+        "scope": {
+          "value": "Frontend + serverless functions (+ Netlify Database branch)",
+          "source": "https://docs.netlify.com/build/functions/overview/",
+          "quote": "Your functions are version-controlled, built, and deployed along with the rest of your Netlify site, giving you the power of Deploy Previews"
+        },
+        "hosting": {
+          "value": "Managed (Netlify cloud)",
+          "source": "https://docs.netlify.com/deploy/deploy-types/deploy-previews/",
+          "quote": "When you open a pull / merge request in a connected site repository from GitHub, GitLab, Bitbucket, Azure DevOps, or Cursor Origin, Netlify automatically builds a Deploy Preview for you."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket, Azure DevOps, Cursor Origin",
+          "source": "https://docs.netlify.com/deploy/deploy-types/deploy-previews/",
+          "quote": "open pull / merge requests in a connected site repository from GitHub, GitLab, Bitbucket, Azure DevOps, or Cursor Origin."
+        },
+        "trigger": {
+          "value": "PR/MR opened; Netlify agent run",
+          "source": "https://docs.netlify.com/deploy/deploy-types/deploy-previews/",
+          "quote": "By default, Netlify automatically builds Deploy Previews when you do one of the following: start an agent run...open pull / merge requests in a connected site repository"
+        },
+        "databases": {
+          "value": "Yes: Netlify Database branch per preview, copied from production",
+          "source": "https://docs.netlify.com/build/data-and-storage/netlify-db/",
+          "quote": "Deploy previews get their own database branch, with a copy of the production data taken when the deploy preview is first created; any changes to the data or the schema made during the lifecycle of the deploy preview will not affect the production database"
+        },
+        "cleanup": {
+          "value": "Deploys auto-deleted after 30 days (90 on paid); not on PR close",
+          "source": "https://docs.netlify.com/deploy/manage-deploys/manage-deploys-overview/",
+          "quote": "By default, Netlify will delete deploys after 30 days (or 90 days on paid plans). This includes deploys triggered by either source control changes, the Netlify UI or CLI, manual uploads, or third-party integrations.",
+          "note": "Enterprise can extend retention up to 365 days. Docs don't state deletion on PR close; database-branch cleanup not documented on the fetched page."
+        },
+        "access": {
+          "value": "Password (Pro+); team login/SSO and previews-only scope (Enterprise)",
+          "source": "https://docs.netlify.com/manage/security/secure-access-to-sites/password-protection/",
+          "quote": "Basic password protection for your entire site is available on all Pro plans. All basic password protection and team login protection options are available on Enterprise plans."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial managed service; vendor publishes no source code or license for the platform itself (inferred, no explicit license statement fetched)."
+        },
+        "pricing": {
+          "value": "Unlimited deploy previews on Free; Pro $20/mo",
+          "source": "https://www.netlify.com/pricing/",
+          "quote": "Unlimited deploy previews",
+          "note": "Listed as a Free plan feature; credit-based plans charge 15 credits per production deploy; preview credit cost not stated."
+        },
+        "on_demand_triggers": {
+          "value": "Agent run, CLI draft deploy, API, build hook",
+          "source": "https://docs.netlify.com/deploy/deploy-types/deploy-previews/",
+          "quote": "By default, Netlify automatically builds Deploy Previews when you do one of the following: start an agent run",
+          "note": "CLI: 'By default, the deploy command deploys to a unique draft URL for previewing and testing.' (https://docs.netlify.com/api-and-cli-guides/cli-guides/get-started-with-cli/). Create-deploys page lists 'API endpoints Create deploys programmatically' and 'Build hooks Trigger deploys from external services using a unique URL' (https://docs.netlify.com/deploy/create-deploys/). Draft/build-hook deploys are draft or branch deploys, not the 'Deploy Preview' type."
+        },
+        "data_copy": {
+          "value": "Netlify DB branch with copy of production data",
+          "source": "https://docs.netlify.com/build/data-and-storage/netlify-db/",
+          "quote": "Deploy previews get their own database branch, with a copy of the production data taken when the deploy preview is first created; any changes to the data or the schema made during the lifecycle of the deploy preview will not affect the production database"
+        },
+        "teardown_hooks": {
+          "value": "'Deploy deleted' outgoing webhook (manual deletes only)",
+          "source": "https://docs.netlify.com/deploy/deploy-notifications/",
+          "quote": "Deploy deleted: event emitted when a deploy is manually deleted.",
+          "note": "Notification via HTTP POST outgoing webhook you must handle yourself; not emitted for automatic retention deletion per the wording. No built-in teardown job."
+        },
+        "multi_repo": {
+          "value": "Not documented",
+          "source": "https://docs.netlify.com/deploy/deploy-types/deploy-previews/",
+          "quote": "When you open a pull / merge request in a connected site repository from GitHub, GitLab, Bitbucket, Azure DevOps, or Cursor Origin, Netlify automatically builds a Deploy Preview for you.",
+          "note": "Previews are per connected site repository; found no docs on composing multiple repos into one preview."
+        }
+      },
+      "capabilities": {
+        "backend": "partial",
+        "database": "yes",
+        "own_cloud": "no",
+        "pr_close": "no",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "yes",
+        "teardown_hooks": "partial",
+        "multi_repo": null
+      },
+      "caveats": [
+        "Password protection is not available on credit-based Free and Personal plans (https://docs.netlify.com/manage/security/secure-access-to-sites/password-protection/).",
+        "Deploy Previews only build when the PR's base branch is the production branch or has branch deploys enabled (https://docs.netlify.com/deploy/deploy-types/deploy-previews/).",
+        "Netlify Database preview branches start as a snapshot of production data, so production data (incl. PII) is copied into previews (https://docs.netlify.com/build/data-and-storage/netlify-db/)."
+      ]
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare (Pages + Workers Previews)",
+      "category": "frontend",
+      "website": "https://www.cloudflare.com/developer-platform/",
+      "preview_docs": "https://developers.cloudflare.com/workers/previews/",
+      "feature_name": "Pages preview deployments; Worker Previews",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Cloudflare Pages creates a preview deployment per branch/PR on pages.dev; Workers (Cloudflare's recommended platform for new projects) has Previews, an isolated per-branch copy of a Worker created with `wrangler preview` or Workers Builds.",
+      "summary_short": "Pages preview deployments and Worker Previews per branch/PR",
+      "facts": {
+        "scope": {
+          "value": "Frontend + Workers; per-preview Durable Objects/containers",
+          "source": "https://developers.cloudflare.com/workers/previews/",
+          "quote": "Cloudflare automatically provisions a new Durable Object namespace and container instances for each Preview. KV, D1, R2, and other resources are isolated when you bind the Preview to a separate resource."
+        },
+        "hosting": {
+          "value": "Managed (Cloudflare network)",
+          "source": "https://developers.cloudflare.com/workers/previews/",
+          "quote": "Previews give each branch an isolated, production-like environment under the same Worker."
+        },
+        "git": {
+          "value": "GitHub, GitLab (Pages and Workers Builds); others via CI + Wrangler",
+          "source": "https://developers.cloudflare.com/pages/configuration/git-integration/",
+          "quote": "Cloudflare supports connecting Cloudflare Pages to your GitHub and GitLab repositories. Pages does not currently support connecting self-hosted instances of GitHub or GitLab.",
+          "note": "Workers Builds: 'Workers Builds provides direct integration with Artifacts repositories, GitHub and GitLab accounts.' (https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/)"
+        },
+        "trigger": {
+          "value": "Branch push/PR (Git integration), `wrangler preview`, or CI",
+          "source": "https://developers.cloudflare.com/workers/previews/examples/",
+          "quote": "enable Preview Builds and confirm the Preview command is npx wrangler preview. Workers Builds creates the Preview. For GitHub and GitLab repositories, it also comments the Preview URL on the pull request."
+        },
+        "databases": {
+          "value": "No auto-provisioned DB; bind D1/KV/R2 per preview manually",
+          "source": "https://developers.cloudflare.com/workers/previews/resources/",
+          "quote": "Use your base branch to configure one staging database that all Previews share by default. A branch that needs an isolated database overrides that binding in its own configuration."
+        },
+        "cleanup": {
+          "value": "Workers: oldest Preview deleted at limit; manual/CI delete. Pages: manual",
+          "source": "https://developers.cloudflare.com/workers/previews/",
+          "quote": "When a limit is reached, Cloudflare automatically deletes the oldest to make room: Preview limit: the Preview that was deployed to least recently is deleted.",
+          "note": "Limits: 100 Previews per Worker on Free, 500 on paid. Docs provide a CI example to delete Previews for closed PRs. Pages: 'To clean up old preview deployments, you can delete them using Wrangler.' (https://developers.cloudflare.com/pages/configuration/preview-deployments/)"
+        },
+        "access": {
+          "value": "Public by default; Cloudflare Access to require sign-in",
+          "source": "https://developers.cloudflare.com/workers/previews/",
+          "quote": "Preview URLs are public by default. Use Cloudflare Access to require sign-in. You can protect all Previews on an account, one Worker's Previews, or specific hostnames."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial managed service; vendor publishes no source code or license for the platform itself (inferred, no explicit license statement fetched). Wrangler CLI is open source (repo metadata not fetched)."
+        },
+        "pricing": {
+          "value": "Free plan available; Workers Paid from $5/month",
+          "source": "https://developers.cloudflare.com/workers/platform/pricing/",
+          "quote": "The Workers Paid plan includes Workers, Pages Functions, Workers KV, Hyperdrive, and Durable Objects usage for a minimum charge of $5 USD per month for an account.",
+          "note": "Pages static asset requests are free and unlimited on both plans (https://developers.cloudflare.com/pages/functions/pricing/)."
+        },
+        "on_demand_triggers": {
+          "value": "CLI (wrangler preview / pages deploy --branch), Pages Deploy Hooks, dashboard upload",
+          "source": "https://developers.cloudflare.com/workers/previews/",
+          "quote": "Running `npx wrangler preview` creates or updates a Preview for your current branch under the same Worker.",
+          "note": "Pages Deploy Hooks: 'With Deploy Hooks, you can trigger deployments using event sources beyond commits in your source repository' incl. 'Schedule a CRON trigger' (https://developers.cloudflare.com/pages/configuration/deploy-hooks/). Direct Upload: 'npx wrangler pages deploy <OUTPUT_DIRECTORY> --branch=<BRANCH_NAME>' and a dashboard 'Create a new deployment' to preview (https://developers.cloudflare.com/pages/get-started/direct-upload/)."
+        },
+        "data_copy": {
+          "value": "Shared or separately bound resources only",
+          "source": "https://developers.cloudflare.com/workers/previews/resources/",
+          "quote": "Two Previews bound to the same account-level resource ID or name share its data or instances. Bind a Preview to a different resource to isolate it.",
+          "note": "D1: 'Two Previews sharing the same `database_id` share rows.' Durable Object namespaces are auto-provisioned new per Preview. No documented clone/snapshot of existing data for a Preview."
+        },
+        "teardown_hooks": {
+          "value": "Own CI on PR close (documented example)",
+          "source": "https://developers.cloudflare.com/workers/previews/examples/",
+          "quote": "Delete closed pull request Previews ... The workflow trigger above includes the `closed` event. Add this cleanup job under `jobs`:",
+          "note": "Example uses GitHub Actions running `npx wrangler preview delete`; Cloudflare also auto-deletes oldest Previews at limits, with no hook."
+        },
+        "multi_repo": {
+          "value": "Cross-Worker previews bind to production",
+          "source": "https://developers.cloudflare.com/workers/previews/resources/",
+          "quote": "Today, if Worker A has a service binding to Worker B and you deploy a Preview of Worker A, the Preview of Worker A can only bind to the production Worker B. It does not automatically bind to a matching Preview of Worker B.",
+          "note": "Listed under Limitations ('Preview support for these areas may come later')."
+        }
+      },
+      "capabilities": {
+        "backend": "partial",
+        "database": "no",
+        "own_cloud": "no",
+        "pr_close": "no",
+        "expiry": "partial",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "no",
+        "teardown_hooks": "partial",
+        "multi_repo": "no"
+      },
+      "caveats": [
+        "Cloudflare now steers new projects to Workers: 'Workers supports most Pages use cases and offers a broader feature set ... Start new projects with Workers.' (https://developers.cloudflare.com/pages/). Pages is not announced as deprecated.",
+        "Worker Previews launched in Sept 2026 and require Wrangler 4.135.0+; service bindings, routes and cron triggers from a Preview still target production (https://developers.cloudflare.com/workers/previews/).",
+        "Cloudflare recommends against using Version URLs / aliased Version URLs for PR previews because they use production resources (https://developers.cloudflare.com/workers/previews/compare-workflows/).",
+        "Pages PR previews are only created for PRs originating from the repository itself, not forks (https://developers.cloudflare.com/pages/configuration/preview-deployments/)."
+      ]
+    },
+    {
+      "id": "aws-amplify-hosting",
+      "name": "AWS Amplify Hosting",
+      "category": "frontend",
+      "website": "https://aws.amazon.com/amplify/hosting/",
+      "preview_docs": "https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html",
+      "feature_name": "Web previews for pull requests (fullstack previews)",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "AWS-managed hosting that deploys each pull request to a unique preview URL and can optionally create a temporary Amplify backend environment per PR, deleted when the PR closes.",
+      "summary_short": "PR previews for frontends/SSR, optionally with a temporary backend per PR",
+      "facts": {
+        "scope": {
+          "value": "Frontend/SSR + optional per-PR Amplify backend",
+          "source": "https://docs.amplify.aws/react/deploy-and-host/amplify-hosting/pr-previews/",
+          "quote": "With fullstack previews, you can set up ephemeral fullstack environments on every pull request."
+        },
+        "hosting": {
+          "value": "Managed (AWS)",
+          "source": "https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html",
+          "quote": "A web preview deploys every pull request made to your repository to a unique preview URL which is completely different from the URL your main site uses."
+        },
+        "git": {
+          "value": "GitHub, Bitbucket, GitLab, AWS CodeCommit",
+          "source": "https://docs.aws.amazon.com/amplify/latest/userguide/getting-started-next.html",
+          "quote": "Amplify supports GitHub, Bitbucket, GitLab, and AWS CodeCommit."
+        },
+        "trigger": {
+          "value": "Pull request opened against an enabled branch",
+          "source": "https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html",
+          "quote": "The next time you submit a pull request for the branch, Amplify builds and deploys your PR to a preview URL."
+        },
+        "databases": {
+          "value": "Optional temporary backend env per PR (private repos only), or shared",
+          "source": "https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html",
+          "quote": "For apps with backend environments provisioned using the Amplify CLI or Amplify Studio, every pull request (private Git repositories only) creates a temporary backend that is deleted when the PR is closed.",
+          "note": "Alternative option: 'Point all Pull Requests for this branch to an existing environment.' No data seeding documented."
+        },
+        "cleanup": {
+          "value": "Yes, preview and backend deleted on PR close",
+          "source": "https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html",
+          "quote": "After the pull request is closed, the preview URL is deleted, and any temporary backend environment linked to the pull request is deleted."
+        },
+        "access": {
+          "value": "Basic-auth username/password per branch or app-wide",
+          "source": "https://docs.aws.amazon.com/amplify/latest/userguide/access-control.html",
+          "quote": "When access control is set on a branch, users are prompted for a user name and password when they attempt to access the URL for the branch."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial managed service; vendor publishes no source code or license for the platform itself (inferred, no explicit license statement fetched)."
+        },
+        "pricing": {
+          "value": "Pay-as-you-go (build $0.01/min); 12-month free tier",
+          "source": "https://aws.amazon.com/amplify/pricing/",
+          "quote": "No cost up to 1,000 build minutes per month",
+          "note": "Free tier is 'Free for 12 months.' Standard build instance '$0.01 per minute'. Per-PR backends incur the underlying AWS resource costs."
+        },
+        "on_demand_triggers": {
+          "value": "API (branch environments, not PR previews)",
+          "source": "https://docs.aws.amazon.com/amplify/latest/APIReference/API_CreateBranch.html",
+          "quote": "CreateBranch Creates a new branch for an Amplify app.",
+          "note": "StartJob: 'Starts a new job for a branch of an Amplify app.' (https://docs.aws.amazon.com/amplify/latest/APIReference/API_StartJob.html). PR web previews themselves are PR-only: 'A web preview deploys every pull request made to your repository to a unique preview URL' (https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html). Incoming webhooks rebuild an existing branch. Debatable: could be scored 'no' for PR previews."
+        },
+        "data_copy": {
+          "value": "New temporary backend or shared dev backend",
+          "source": "https://docs.amplify.aws/react/deploy-and-host/amplify-hosting/pr-previews/",
+          "quote": "For example, you might want all your preview branches to point to the backend resources deployed by the dev branch so you can reuse seed data, users, and groups.",
+          "note": "Otherwise each PR gets a fresh 'temporary backend that is deleted when the PR is closed' (userguide pr-previews). No documented data clone."
+        },
+        "teardown_hooks": {
+          "value": "Auto-delete only; no custom hook documented",
+          "source": "https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html",
+          "quote": "After the pull request is closed, the preview URL is deleted, and any temporary backend environment linked to the pull request is deleted.",
+          "note": "Automatic teardown of Amplify-managed resources; no documentation of running custom cleanup steps."
+        },
+        "multi_repo": {
+          "value": "Frontend repo points at backend from another repo",
+          "source": "https://docs.amplify.aws/react/deploy-and-host/amplify-hosting/mono-and-multi-repos/",
+          "quote": "You might have different frontend and backend teams that maintain their own repositories. With Amplify Gen 2, you can deploy repositories that have backend-only code, so frontend and backend teams can operate independently of each other.",
+          "note": "Frontend build runs `npx ampx generate outputs --branch main --app-id <your-backend-app-id>`, i.e. it targets a fixed backend branch, not a per-PR backend built from the other repo."
+        }
+      },
+      "capabilities": {
+        "backend": "partial",
+        "database": "partial",
+        "own_cloud": "no",
+        "pr_close": "yes",
+        "expiry": null,
+        "protection": "yes",
+        "on_demand_triggers": "partial",
+        "data_copy": "no",
+        "teardown_hooks": null,
+        "multi_repo": "partial"
+      },
+      "caveats": [
+        "Each PR counts toward the quota of 50 branches per app (https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html).",
+        "Previews cannot be enabled for public repos on apps needing an IAM service role (backends, WEB_COMPUTE/SSR) to prevent untrusted code running with your role (https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html).",
+        "GitHub previews require the Amplify GitHub App; OAuth-connected apps must migrate first (https://docs.aws.amazon.com/amplify/latest/userguide/pr-previews.html)."
+      ]
+    },
+    {
+      "id": "azure-static-web-apps",
+      "name": "Azure Static Web Apps",
+      "category": "frontend",
+      "website": "https://azure.microsoft.com/en-us/products/app-service/static",
+      "preview_docs": "https://learn.microsoft.com/en-us/azure/static-web-apps/review-publish-pull-requests",
+      "feature_name": "Pre-production (staging) environments",
+      "github": "https://github.com/Azure/static-web-apps-deploy",
+      "last_verified": "2026-10-26",
+      "summary": "Azure service for static frontends with managed Azure Functions APIs; its generated GitHub Actions workflow deploys each pull request to a staging environment that is deleted when the PR closes.",
+      "summary_short": "Staging environment per PR for static sites and managed Functions APIs",
+      "facts": {
+        "scope": {
+          "value": "Static frontend + managed Azure Functions APIs",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/plans",
+          "quote": "| APIs via Azure Functions | Managed | Managed or Bring your own Functions app |"
+        },
+        "hosting": {
+          "value": "Managed (Azure)",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/review-publish-pull-requests",
+          "quote": "A pre-production environment is a fully functional staged version of your application that includes changes not available in production."
+        },
+        "git": {
+          "value": "GitHub (Actions) only for auto PR envs; Azure DevOps manual",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/review-publish-pull-requests",
+          "quote": "Pull request environments are not automatically supported for Azure DevOps, but you can use named environments to set them up manually.",
+          "note": "Limitations section: 'Only GitHub Actions deployments support pre-production environments.'"
+        },
+        "trigger": {
+          "value": "PR against a watched branch (GitHub Actions workflow)",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/review-publish-pull-requests",
+          "quote": "Azure Static Web Apps generates a YAML workflow in the repo. When a pull request is created against a branch that the workflow watches, the pre-production environment gets built."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No per-preview database documented. The Database Connections feature is retired: 'Retirement notice: Database Connections for Static Web Apps ends November 30, 2025.' (https://learn.microsoft.com/en-us/azure/static-web-apps/database-overview)"
+        },
+        "cleanup": {
+          "value": "Yes, deleted when PR closes",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/review-publish-pull-requests",
+          "quote": "The lifecycle of a pre-production environment is tied to the pull request. Once the pull request is closed, the pre-production environment is automatically deleted."
+        },
+        "access": {
+          "value": "Public by default; password for staging (Standard plan)",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/password-protection",
+          "quote": "select Protect staging environments only to protect only your app's pre-production environments or select Protect both production and staging environments to protect all environments.",
+          "note": "Prerequisite: 'An existing static web app in the Standard plan.' PR docs warn: 'Anyone can access the staged versions of your application via their URL, even if your GitHub repo is private.'"
+        },
+        "license": {
+          "value": "Proprietary service; deploy Action MIT",
+          "source": "https://api.github.com/repos/Azure/static-web-apps-deploy",
+          "quote": "\"spdx_id\": \"MIT\"",
+          "note": "Service itself is closed-source; only the GitHub Action repo carries an MIT license."
+        },
+        "pricing": {
+          "value": "Free plan (3 staging envs); Standard (10 staging envs)",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/plans",
+          "quote": "| Staging environments | 3 per app | 10 per app | 20 per app |",
+          "note": "Columns: Free / Standard / Dedicated (retired). Standard price not rendered in fetched pricing page text; see https://azure.microsoft.com/pricing/details/app-service/static/."
+        },
+        "on_demand_triggers": {
+          "value": "CLI (swa deploy, default env 'preview')",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/static-web-apps-cli-deploy",
+          "quote": "--env [environment] : the type of deployment environment where to deploy the project (default: \" preview \")",
+          "note": "Named environments exist but are driven by your CI pipeline config ('Set the `deployment_environment` input...'), not a separate platform trigger. PR environments are created by the generated GitHub Actions workflow, so any GitHub trigger can be added by the user."
+        },
+        "data_copy": {
+          "value": "Not documented",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/database-overview",
+          "quote": "Retirement notice: Database Connections for Static Web Apps ends November 30, 2025.",
+          "note": "Only database feature was connections to an existing DB (now retired); nothing about cloning data for pre-production environments."
+        },
+        "teardown_hooks": {
+          "value": "Generated close_pull_request_job in your workflow",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/build-configuration",
+          "quote": "close_pull_request_job: if: github.event_name == 'pull_request' && github.event.action == 'closed' runs-on: ubuntu-latest name: Close Pull Request Job steps: - name: Close Pull Request id: closepullrequest uses: Azure/static-web-apps-deploy@v1 with: ... action: \"close\"",
+          "note": "Quote is from the YAML sample on the page (newlines collapsed, token line elided with '...'). The job runs in your own GitHub Actions, so extra cleanup steps can be added there."
+        },
+        "multi_repo": {
+          "value": "Linked backends not allowed on PR environments",
+          "source": "https://learn.microsoft.com/en-us/azure/static-web-apps/apis-overview",
+          "quote": "Bring your own API backends cannot be linked to a Static Web Apps pull request environment.",
+          "note": "Container Apps page: 'Backend integration is not supported on Static Web Apps pull request environments.'"
+        }
+      },
+      "capabilities": {
+        "backend": "partial",
+        "database": "no",
+        "own_cloud": "no",
+        "pr_close": "yes",
+        "expiry": null,
+        "protection": "yes",
+        "on_demand_triggers": "partial",
+        "data_copy": null,
+        "teardown_hooks": "partial",
+        "multi_repo": "no"
+      },
+      "caveats": [
+        "Pre-production environments aren't geo-distributed (https://learn.microsoft.com/en-us/azure/static-web-apps/review-publish-pull-requests).",
+        "The Dedicated plan was retired effective October 31, 2025 (https://learn.microsoft.com/en-us/azure/static-web-apps/plans).",
+        "Database Connections (Data API builder) feature retired November 30, 2025 (https://learn.microsoft.com/en-us/azure/static-web-apps/database-overview).",
+        "Azure/static-web-apps-deploy repo last pushed 2024-09-11 (GitHub API)."
+      ]
+    },
+    {
+      "id": "firebase-hosting",
+      "name": "Firebase Hosting",
+      "category": "frontend",
+      "website": "https://firebase.google.com/products/hosting",
+      "preview_docs": "https://firebase.google.com/docs/hosting/test-preview-deploy",
+      "feature_name": "Preview channels",
+      "github": "https://github.com/FirebaseExtended/action-hosting-deploy",
+      "last_verified": "2026-10-26",
+      "summary": "Google's static/web hosting where `firebase hosting:channel:deploy` or the official GitHub Action deploys to a temporary preview channel URL that expires after a TTL; previews talk to the project's real backend.",
+      "summary_short": "Temporary preview channels for static sites, using the live backend",
+      "facts": {
+        "scope": {
+          "value": "Static frontend; uses the project's live backend",
+          "source": "https://firebase.google.com/docs/hosting/github-integration",
+          "quote": "Reminder: When using preview URLs, your app interacts with the real backend resources of your Firebase project."
+        },
+        "hosting": {
+          "value": "Managed (Google/Firebase)",
+          "source": "https://firebase.google.com/docs/hosting/test-preview-deploy",
+          "quote": "If you need your teammates to view and test your changes, Hosting can create sharable, temporary preview URLs for your site."
+        },
+        "git": {
+          "value": "GitHub (via official GitHub Action); any CI via CLI",
+          "source": "https://firebase.google.com/docs/hosting/github-integration",
+          "quote": "Creates a new preview channel (and its associated preview URL) for every PR on your GitHub repository."
+        },
+        "trigger": {
+          "value": "CLI command or GitHub Action on PR commits",
+          "source": "https://firebase.google.com/docs/hosting/test-preview-deploy",
+          "quote": "firebase hosting:channel:deploy CHANNEL_ID",
+          "note": "'Firebase Hosting supports a GitHub Action that automatically creates and updates a preview URL when you commit changes to a pull request.'"
+        },
+        "databases": {
+          "value": "Shared only (real project backend)",
+          "source": "https://firebase.google.com/docs/hosting/github-integration",
+          "quote": "Reminder: When using preview URLs, your app interacts with the real backend resources of your Firebase project."
+        },
+        "cleanup": {
+          "value": "Yes, TTL: expires after 7 days by default (max 30)",
+          "source": "https://firebase.google.com/docs/hosting/manage-hosting-resources",
+          "quote": "By default, a preview channel expires 7 days from its creation date, but your site's live channel will never expire. When a preview channel expires, the channel, along with its releases and associated versions, are scheduled for deletion within 24 hours.",
+          "note": "'The expiration can be up to 30 days from the date of deploy.' Not tied to PR close."
+        },
+        "access": {
+          "value": "Public (unguessable URL), no built-in protection",
+          "source": "https://firebase.google.com/docs/hosting/test-preview-deploy",
+          "quote": "Note that although preview URLs are difficult to guess (as they contain a random hash), they are public. So, anyone who knows the URL can access it."
+        },
+        "license": {
+          "value": "Proprietary service; GitHub Action Apache-2.0",
+          "source": "https://api.github.com/repos/FirebaseExtended/action-hosting-deploy",
+          "quote": "\"spdx_id\": \"Apache-2.0\"",
+          "note": "Service itself is closed-source; the deploy Action is Apache-2.0."
+        },
+        "pricing": {
+          "value": "No-cost Spark plan (10 GB storage); Blaze pay-as-you-go",
+          "source": "https://firebase.google.com/pricing",
+          "quote": "No-cost up to 10 GB",
+          "note": "Hosting storage on Spark plan; Blaze 'Then $0.026/GB'. Data transfer: 'No-cost up to 360 MB/day', then '$0.15/GB'."
+        },
+        "on_demand_triggers": {
+          "value": "CLI, REST API",
+          "source": "https://firebase.google.com/docs/hosting/test-preview-deploy",
+          "quote": "From the root of your local project directory, run the following command: firebase hosting:channel:deploy CHANNEL_ID",
+          "note": "REST: 'Creates a new channel in the specified site.' (https://firebase.google.com/docs/reference/hosting/rest/v1beta1/sites.channels/create)."
+        },
+        "data_copy": {
+          "value": "Previews use the real (shared) backend",
+          "source": "https://firebase.google.com/docs/hosting/test-preview-deploy",
+          "quote": "When using a preview URL, your web app interacts with your real backend for all project resources (with the exception of any \"pinned\" functions in your rewrites config)."
+        },
+        "teardown_hooks": {
+          "value": "Expiry/delete only; no hook documented",
+          "source": "https://firebase.google.com/docs/hosting/manage-hosting-resources",
+          "quote": "When a preview channel expires, the channel, along with its releases and associated versions, are scheduled for deletion within 24 hours.",
+          "note": "Also 'firebase hosting:channel:delete CHANNEL_ID'. No documented custom cleanup hook."
+        },
+        "multi_repo": {
+          "value": "Not documented",
+          "source": "https://firebase.google.com/docs/hosting/github-integration",
+          "quote": "(Optional) Deploys the current state of your GitHub repo to your live channel when the PR is merged.",
+          "note": "GitHub integration is per repo; nothing documented about combining repos in one preview channel."
+        }
+      },
+      "capabilities": {
+        "backend": "no",
+        "database": "no",
+        "own_cloud": "no",
+        "pr_close": "no",
+        "expiry": "yes",
+        "protection": "no",
+        "on_demand_triggers": "yes",
+        "data_copy": "no",
+        "teardown_hooks": null,
+        "multi_repo": null
+      },
+      "caveats": [
+        "Previews share production backend resources (Firestore, Auth, etc.) except functions 'pinned' in rewrites config (https://firebase.google.com/docs/hosting/test-preview-deploy).",
+        "Redeploying within 7 days of expiry auto-extends the channel by 7 days (https://firebase.google.com/docs/hosting/manage-hosting-resources).",
+        "This entry covers Firebase Hosting; Firebase App Hosting is a separate product and was not assessed."
+      ]
+    },
+    {
+      "id": "render",
+      "name": "Render",
+      "category": "full-stack",
+      "website": "https://render.com",
+      "preview_docs": "https://render.com/docs/preview-environments",
+      "feature_name": "Preview Environments (multi-service) and Service Previews (single-service)",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Managed PaaS that can create a copy of a Blueprint-defined environment (services, datastores, env groups) for each pull request, or a preview of a single web service/static site.",
+      "summary_short": "Copy of a Blueprint environment per PR, with new Postgres/Key Value instances",
+      "facts": {
+        "scope": {
+          "value": "Full-stack: services, datastores, environment groups",
+          "source": "https://render.com/docs/preview-environments",
+          "quote": "automatically creating a fresh copy of your production environment (including services, datastores, and environment groups) with every pull request"
+        },
+        "hosting": {
+          "value": "Managed (Render cloud)",
+          "source": "https://render.com/pricing",
+          "quote": "Connect your repo, and go Deploy up to 25 services ... Single-service previews ... Full-stack previews",
+          "note": "Render is a managed platform; no self-hosted/BYOC option found in docs reviewed."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket (service previews)",
+          "source": "https://render.com/docs/service-previews",
+          "quote": "On GitHub, preview instances are represented as deployments associated with your PR ... On GitLab, Bitbucket, and Cursor Origin, Render adds a comment to your PR with a link to your preview instance.",
+          "note": "Preview environments page notes: 'As of this writing, GitLab does not support status updates on merge requests.'"
+        },
+        "trigger": {
+          "value": "Every PR (automatic) or opt-in via PR title/label (manual)",
+          "source": "https://render.com/docs/service-previews",
+          "quote": "Manual By default, Render does not create PR previews. To create a preview for a specific PR, do any of the following: Add the label render-preview to the PR (GitHub/GitLab only). Include the string [render preview] in your PR's title"
+        },
+        "databases": {
+          "value": "Yes, new empty Postgres/Key Value per preview; seedable",
+          "source": "https://render.com/docs/preview-environments",
+          "quote": "Copies of datastores and persistent disks do not include data from their corresponding \"base\" resource (you can seed sample data as part of preview environment initialization )."
+        },
+        "cleanup": {
+          "value": "Yes, on PR merge/close; optional inactivity expiry",
+          "source": "https://render.com/docs/preview-environments",
+          "quote": "automatically destroys them when the original pull request is merged or closed. You can also set up an expiry time to automatically clean up preview environments after a period of inactivity."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Docs reviewed do not describe access protection for preview URLs."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial service; no open-source license is published (inferred)."
+        },
+        "pricing": {
+          "value": "Billed as normal compute; full-stack previews need Pro plan+",
+          "source": "https://render.com/docs/preview-environments",
+          "quote": "Preview environments require a Pro workspace plan or higher. ... Preview resources are billed the same as other Render services and are prorated by the second."
+        },
+        "on_demand_triggers": {
+          "value": "PR label/title opt-in, REST API (image-backed service previews)",
+          "source": "https://render.com/docs/service-previews",
+          "quote": "To create a preview for a specific PR, do any of the following: - Add the label `render-preview` to the PR (GitHub/GitLab only). ... For [image-backed services](/deploying-an-image), you can create a service preview using the [Render API](api).",
+          "note": "Full Blueprint preview environments support only the `[render preview]` PR-title opt-in (manual mode); the label and API create apply to single-service previews."
+        },
+        "data_copy": {
+          "value": "Empty/seeded datastores only",
+          "source": "https://render.com/docs/preview-environments",
+          "quote": "Copies of datastores and persistent disks do _not_ include data from their corresponding \"base\" resource (you can seed sample data as part of [preview environment initialization](#preview-environment-initialization))."
+        },
+        "teardown_hooks": {
+          "value": "Not documented",
+          "source": "https://render.com/docs/preview-environments",
+          "quote": "You might want to run custom initialization for your preview environment after it is created but not on subsequent deploys",
+          "note": "Only a create-time initialDeployHook is documented; no delete/teardown hook found in preview environment or Blueprint docs."
+        },
+        "multi_repo": {
+          "value": "Blueprint can pull services from other repos (default branch)",
+          "source": "https://render.com/docs/blueprint-spec",
+          "quote": "For Git-based services, the URL of the Git provider repo to use. Your Git provider account must have access to the repo. If omitted, Render uses the repo that contains the Blueprint file. ... Render uses the repo's default branch (most commonly `main` or `master`) if the service uses a different repo from the Blueprint file.",
+          "note": "Services from another repo can be part of the Blueprint (and so the preview), but docs don't describe PR-branch matching across repos."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "no",
+        "pr_close": "yes",
+        "expiry": "yes",
+        "protection": null,
+        "on_demand_triggers": "yes",
+        "data_copy": "no",
+        "teardown_hooks": null,
+        "multi_repo": "partial"
+      },
+      "caveats": [
+        "Preview environments require a Blueprint (render.yaml); `previews.expireAfterDays` sets inactivity expiry, default is no expiry (https://render.com/docs/preview-environments).",
+        "Preview environments do not currently support Render Workflows (https://render.com/docs/preview-environments).",
+        "Single-service PR previews are listed on the Hobby plan; full-stack preview environments on Pro and above (https://render.com/pricing).",
+        "Image-backed service previews are created via API and are not auto-deleted (https://render.com/docs/service-previews)."
+      ]
+    },
+    {
+      "id": "heroku",
+      "name": "Heroku",
+      "category": "full-stack",
+      "website": "https://www.heroku.com",
+      "preview_docs": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+      "feature_name": "Review Apps",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Managed PaaS (Salesforce) where each GitHub pull request in a Pipeline can get a disposable Heroku app configured by app.json, including add-ons.",
+      "summary_short": "Disposable app per GitHub PR from app.json, including add-ons",
+      "facts": {
+        "scope": {
+          "value": "Full Heroku app: dynos + add-ons from app.json",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "Review apps run the code in any GitHub pull request in a complete, disposable Heroku app."
+        },
+        "hosting": {
+          "value": "Managed (Heroku cloud, incl. Private Spaces)",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "In most cases, Heroku defaults to using the least expensive dyno available in your plan for review apps. However, apps in Private Spaces default to using private-m dynos."
+        },
+        "git": {
+          "value": "GitHub only",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "Your app must enable both Heroku Pipelines and GitHub integration to use review apps."
+        },
+        "trigger": {
+          "value": "PR opened (automatic) or manual via Dashboard/CLI",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "With automatic creation, Heroku creates a review app as soon as a pull request is opened on your app’s connected GitHub repo."
+        },
+        "databases": {
+          "value": "Yes, add-ons (e.g. Heroku Postgres) provisioned per app; seed via postdeploy",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "Copying full database contents to a review app isn’t currently supported. ... Instead, we recommend seeding databases",
+          "note": "Add-ons listed in app.json are provisioned for each review app; providers may force an ephemeral plan."
+        },
+        "cleanup": {
+          "value": "Yes, on PR close; optional 1-30 day inactivity",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "Review apps exist only for the life of their associated pull request. You can set to destroy them automatically after 1, 2, 5, 14 or 30 days of inactivity"
+        },
+        "access": {
+          "value": "Public URL, random name by default",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "After enabling review apps, visit the pipeline’s Settings tab to check and update the URL pattern. The default is set to random.",
+          "note": "Dashboard access to review apps is governed by team/pipeline permissions; no URL auth is described."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial service; no open-source license is published (inferred)."
+        },
+        "pricing": {
+          "value": "Dynos and add-ons billed as normal apps, per second",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "Heroku charges dynos and add-ons in review apps in exactly the same way as for normal apps. Costs are pro-rated to the second, and you’re only charged for the time that the review app exists."
+        },
+        "on_demand_triggers": {
+          "value": "Dashboard button, CLI, Platform API",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "From the dashboard, you can manually create review apps for a listed pull request with the Create button next to it. You can also manually create review apps from a connected repository via the Heroku CLI with heroku reviewapps:create: ... It allows you to enable, disable, create, and delete review apps."
+        },
+        "data_copy": {
+          "value": "Seed scripts only; DB copy unsupported",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "Copying full database contents to a review app isn’t currently supported."
+        },
+        "teardown_hooks": {
+          "value": "pr-predestroy script in app.json",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "You can optionally specify a pr-predestroy script on your app.json file. This script runs when review apps are destroyed when the associated pull request is merged or closed. ... Use the pr-predestroy script to tear down any resources provisioned during postdeploy and to do other clean-up.",
+          "note": "Docs note apps using Docker images can't use pr-predestroy scripts."
+        },
+        "multi_repo": {
+          "value": "One pipeline = one connected GitHub repo",
+          "source": "https://devcenter.heroku.com/articles/github-integration-review-apps",
+          "quote": "connect your pipeline to the corresponding GitHub repository. ... An app.json file is required in the root of your app’s GitHub repo for review apps to work.",
+          "note": "Inferred from the single connected repo per pipeline; a review app is a single Heroku app. No explicit statement forbidding multi-repo."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "no",
+        "pr_close": "yes",
+        "expiry": "yes",
+        "protection": "no",
+        "on_demand_triggers": "yes",
+        "data_copy": "no",
+        "teardown_hooks": "yes",
+        "multi_repo": "no"
+      },
+      "caveats": [
+        "Requires Heroku Pipelines and an app.json in the repo root (https://devcenter.heroku.com/articles/github-integration-review-apps).",
+        "Closing a PR only destroys review apps that were created automatically; manually created ones persist (same page).",
+        "Review apps are not auto-created for PRs from forks of public repos (same page).",
+        "Predictable review-app URLs are not planned for Fir-generation apps; Review Apps themselves are listed as supported on both generations (https://devcenter.heroku.com/articles/generations).",
+        "Auto-created review app costs are charged to the user who connected the app to GitHub (same page)."
+      ]
+    },
+    {
+      "id": "railway",
+      "name": "Railway",
+      "category": "full-stack",
+      "website": "https://railway.com",
+      "preview_docs": "https://docs.railway.com/guides/environments",
+      "feature_name": "PR Environments",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Managed PaaS where enabling PR Environments spins up a temporary copy of a project environment (its services) for each GitHub pull request.",
+      "summary_short": "Temporary copy of a project environment per GitHub PR",
+      "facts": {
+        "scope": {
+          "value": "Full-stack: project services (incl. database services)",
+          "source": "https://docs.railway.com/guides/environments",
+          "quote": "Railway can spin up a temporary environment whenever you open a Pull Request. ... When enabled, a temporary environment is spun up to support the Pull Request deploy.",
+          "note": "Focused PR Environments (beta) deploy only services affected by changed files plus their dependencies."
+        },
+        "hosting": {
+          "value": "Managed (Railway-operated hardware)",
+          "source": "https://docs.railway.com/railway-metal",
+          "quote": "It is built on hardware that we own and operate in datacenters around the world."
+        },
+        "git": {
+          "value": "GitHub",
+          "source": "https://docs.railway.com/guides/environments",
+          "quote": "How come my GitHub PR won't deploy? Railway will not deploy a PR branch from a user who is not in your workspace or invited to your project without their associated GitHub account.",
+          "note": "Docs only describe GitHub; other providers not mentioned."
+        },
+        "trigger": {
+          "value": "PR opened; optional for bot-authored PRs",
+          "source": "https://docs.railway.com/guides/environments",
+          "quote": "You can enable automatic PR environment creation for PRs opened by GitHub bots using the Enable Bot PR Environments toggle"
+        },
+        "databases": {
+          "value": "Yes, own DB services; optional volume data copy (beta)",
+          "source": "https://railway.com/changelog/2024-12-13-volume-data-transfer",
+          "quote": "you can now automatically copy volume data from one environment to another for all services when spinning up new PR environments. ... This feature is currently in beta.",
+          "note": "Current environments doc does not mention Copy Volume Data; source is the Dec 2024 changelog."
+        },
+        "cleanup": {
+          "value": "Yes, on PR merge/close",
+          "source": "https://docs.railway.com/guides/environments",
+          "quote": "These environments are deleted as soon as these PRs are merged or closed."
+        },
+        "access": {
+          "value": "Railway-provided public domains if base env uses them",
+          "source": "https://docs.railway.com/guides/environments",
+          "quote": "Services in PR environments will only receive domains automatically when their corresponding base environment"
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial service; no open-source license is published (inferred)."
+        },
+        "pricing": {
+          "value": "Usage-based compute; Hobby $5 / Pro $20 minimum usage",
+          "source": "https://railway.com/pricing",
+          "quote": "Hobby $ 5 minimum usage ... Includes $5 of monthly usage credits After credits are used, you'll only be charged for extra resource usage",
+          "note": "Pricing page does not mention PR environments specifically."
+        },
+        "on_demand_triggers": {
+          "value": "Dashboard button, CLI, API (generic environments)",
+          "source": "https://docs.railway.com/cli/environment",
+          "quote": "Create, delete, edit, or link an environment. ... railway environment new staging --duplicate production",
+          "note": "Dashboard: 'Select `+ New Environment` from the environment drop down' (docs.railway.com/environments). These create full (duplicated) environments, not PR environments, and aren't auto-deleted. Railway's public GraphQL API also manages environments."
+        },
+        "data_copy": {
+          "value": "Copy volume data from base environment",
+          "source": "https://railway.com/changelog/2024-12-13-volume-data-transfer",
+          "quote": "you can now automatically copy volume data from one environment to another for all services when spinning up new PR environments. To get started, navigate to PR Environments in the Environments section of your project settings. From there, set a base environment and toggle the Enable Copy Volume Data switch."
+        },
+        "teardown_hooks": {
+          "value": "Not documented",
+          "source": "https://docs.railway.com/environments",
+          "quote": "These environments are deleted as soon as these PRs are merged or closed.",
+          "note": "No delete/teardown hook documented."
+        },
+        "multi_repo": {
+          "value": "Project can mix services from several repos",
+          "source": "https://docs.railway.com/environments",
+          "quote": "Services connected to the PR repo that are affected by changed files",
+          "note": "Wording implies a project (and its PR environments) can contain services connected to other repos, but docs don't explicitly describe cross-repo PR environments or branch matching."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "no",
+        "pr_close": "yes",
+        "expiry": null,
+        "protection": "no",
+        "on_demand_triggers": "yes",
+        "data_copy": "yes",
+        "teardown_hooks": null,
+        "multi_repo": "partial"
+      },
+      "caveats": [
+        "PR branches from users not in the workspace/project are not deployed (https://docs.railway.com/guides/environments).",
+        "Focused PR Environments and volume-data copy are labelled beta (https://docs.railway.com/guides/environments; https://railway.com/changelog/2024-12-13-volume-data-transfer)."
+      ]
+    },
+    {
+      "id": "fly-pr-review-apps",
+      "name": "Fly.io PR Review Apps (superfly/fly-pr-review-apps)",
+      "category": "open-source-tool",
+      "website": "https://fly.io",
+      "preview_docs": "https://fly.io/docs/blueprints/review-apps-guide/",
+      "feature_name": "Review apps via GitHub Action",
+      "github": "https://github.com/superfly/fly-pr-review-apps",
+      "last_verified": "2026-10-26",
+      "summary": "Official Fly.io GitHub Action (superfly org) that wraps flyctl to create, deploy and destroy a Fly app per pull request; documented in Fly's own docs.",
+      "summary_short": "Official GitHub Action that creates and destroys a Fly.io app per PR",
+      "facts": {
+        "scope": {
+          "value": "Single Fly app by default; extra apps/DB attach via workflow",
+          "source": "https://fly.io/docs/blueprints/review-apps-guide/",
+          "quote": "The workflow described above will spin up a single application without other resources; if data stores, multiple Fly Apps, or other resources are required, see Customizing your workflow ."
+        },
+        "hosting": {
+          "value": "Managed (Fly.io); action runs in GitHub Actions",
+          "source": "https://github.com/superfly/fly-pr-review-apps",
+          "quote": "This GitHub action wraps the Fly.io CLI to automatically deploy pull requests to fly.io for review."
+        },
+        "git": {
+          "value": "GitHub (GitHub Actions)",
+          "source": "https://fly.io/docs/blueprints/review-apps-guide/",
+          "quote": "This guide will teach you how to automatically generate ephemeral “review apps” on Fly.io for each pull request (PR) using GitHub Actions."
+        },
+        "trigger": {
+          "value": "GitHub Actions on pull_request events",
+          "source": "https://fly.io/docs/blueprints/review-apps-guide/",
+          "quote": "Run this workflow on every PR event. Existing review apps will be updated when the PR is updated. pull_request : types : [ opened , reopened , synchronize , closed ]"
+        },
+        "databases": {
+          "value": "Optional: new DB in an existing Fly Postgres cluster",
+          "source": "https://github.com/superfly/fly-pr-review-apps",
+          "quote": "you can attach it using the postgres action input. flyctl postgres attach will be used, which automatically creates a new database in the cluster named after the Fly app and sets DATABASE_URL."
+        },
+        "cleanup": {
+          "value": "Yes, app destroyed on PR close event",
+          "source": "https://github.com/superfly/fly-pr-review-apps",
+          "quote": "This action will create, deploy, and destroy Fly apps.",
+          "note": "entrypoint.sh: on 'closed' event it runs `flyctl apps destroy`. GitHub deployment environments are not deleted."
+        },
+        "access": {
+          "value": "Public *.fly.dev URL",
+          "source": "https://fly.io/docs/blueprints/review-apps-guide/",
+          "quote": "By default, review apps will be available at `https://pr-<PR number>-<repository owner>-<repository name>.fly.dev` ."
+        },
+        "license": {
+          "value": "Open source, Apache-2.0",
+          "source": "https://github.com/superfly/fly-pr-review-apps/blob/main/LICENSE",
+          "quote": "Apache License Version 2.0, January 2004",
+          "note": "SPDX from GitHub API: Apache-2.0."
+        },
+        "pricing": {
+          "value": "Billed as normal Fly Machines usage",
+          "source": "https://fly.io/docs/about/pricing/",
+          "quote": "Started Machine, shared-cpu-1x with 256MB RAM $2.19/month Smallest Machine size."
+        }
+      },
+      "caveats": [
+        "Maintained in the official superfly org; GitHub API (2026-10-23): ~205 stars, not archived, last push 2026-02-27, latest release 1.6.0 (2026-02-27). Fly docs guide still pins older @1.2.1.",
+        "Requires FLY_API_TOKEN secret; org accounts need an org token (https://github.com/superfly/fly-pr-review-apps).",
+        "Fly guide notes the approach can be adapted to other Git services, but the action itself is GitHub Actions only (https://fly.io/docs/blueprints/review-apps-guide/)."
+      ]
+    },
+    {
+      "id": "digitalocean-app-platform",
+      "name": "DigitalOcean App Platform PR previews (app_action)",
+      "category": "open-source-tool",
+      "website": "https://www.digitalocean.com/products/app-platform",
+      "preview_docs": "https://github.com/digitalocean/app_action#launch-a-preview-app-per-pull-request",
+      "feature_name": "Preview Apps via digitalocean/app_action",
+      "github": "https://github.com/digitalocean/app_action",
+      "last_verified": "2026-10-26",
+      "summary": "DigitalOcean's official GitHub Action can deploy an App Platform app per pull request in 'PR preview' mode and delete it when the PR closes; there is no built-in dashboard preview toggle documented.",
+      "summary_short": "Official GitHub Action that deploys an App Platform app per PR",
+      "facts": {
+        "scope": {
+          "value": "App Platform app from app spec (services etc.)",
+          "source": "https://github.com/digitalocean/app_action",
+          "quote": "deploy_pr_preview: Deploy the app as a PR preview. The app name will be derived from the PR, the app spec will be modified to exclude conflicting configuration like domains and alerts"
+        },
+        "hosting": {
+          "value": "Managed (DigitalOcean); action runs in GitHub Actions",
+          "source": "https://github.com/digitalocean/app_action",
+          "quote": "Deploy a DigitalOcean App Platform app using GitHub Actions."
+        },
+        "git": {
+          "value": "GitHub (GitHub Actions)",
+          "source": "https://github.com/digitalocean/app_action",
+          "quote": "all Github references to the current repository will be updated to point to the PR's branch."
+        },
+        "trigger": {
+          "value": "GitHub Actions pull_request workflow",
+          "source": "https://github.com/digitalocean/app_action",
+          "quote": "The following 2 actions implement a \"Preview Apps\" feature, that provide a per-PR app to check if the deployment would work."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "README does not describe database handling for preview apps."
+        },
+        "cleanup": {
+          "value": "Yes, via delete action on PR close/merge",
+          "source": "https://github.com/digitalocean/app_action",
+          "quote": "Once the PR is closed or merged, the respective app is deleted again."
+        },
+        "access": {
+          "value": "Public live URL posted as PR comment",
+          "source": "https://github.com/digitalocean/app_action",
+          "quote": "If the deployment succeeds, a comment is posted with the live URL of the app."
+        },
+        "license": {
+          "value": "Open source, MIT (the Action)",
+          "source": "https://github.com/digitalocean/app_action/blob/main/LICENSE",
+          "quote": "MIT License",
+          "note": "SPDX from GitHub API; App Platform itself is proprietary."
+        },
+        "pricing": {
+          "value": "Billed as normal App Platform apps; from $5/month",
+          "source": "https://www.digitalocean.com/products/app-platform",
+          "quote": "Start for as little as $ 5 /month"
+        }
+      },
+      "caveats": [
+        "DigitalOcean's product page advertises 'automatic preview environments for every pull request' via CI-driven workflows like GitHub Actions (https://www.digitalocean.com/products/app-platform); the documented mechanism is the app_action GitHub Action.",
+        "GitHub API (2026-10-23): ~157 stars, not archived, last push 2026-04-13."
+      ]
+    },
+    {
+      "id": "coolify",
+      "name": "Coolify",
+      "category": "self-hosted-paas",
+      "website": "https://coolify.io",
+      "preview_docs": "https://coolify.io/docs/applications/deployments/preview-deployments",
+      "feature_name": "Preview Deployments",
+      "github": "https://github.com/coollabsio/coolify",
+      "last_verified": "2026-10-26",
+      "summary": "Open-source, self-hostable PaaS that can deploy each pull/merge request of an application (including Docker Compose stacks) to its own domain on your servers.",
+      "summary_short": "Self-hosted PaaS with per-PR preview deployments of apps and Compose stacks",
+      "facts": {
+        "scope": {
+          "value": "Application or Docker Compose stack per PR",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "A preview deployment runs the code from a pull request or merge request separately from the production application. ... Docker Compose previews can have a separate domain for each service."
+        },
+        "hosting": {
+          "value": "Self-hosted (free) or Coolify Cloud control plane on your servers",
+          "source": "https://coolify.io/pricing",
+          "quote": "Just connect your servers, Coolify runs on our managed infrastructure."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket, Gitea",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "GitLab, Gitea, and Bitbucket pull requests from other repositories require public preview deployments to be enabled.",
+          "note": "PR listing UI and status comments are GitHub App only."
+        },
+        "trigger": {
+          "value": "PR/MR opened or updated via GitHub App or webhook; API",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "Choose how Coolify receives pull-request or merge-request events for the application. GitHub App Repository webhook"
+        },
+        "databases": {
+          "value": "None built in; use non-prod external DBs",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "Use non-production credentials for preview databases, storage, and external services.",
+          "note": "Preview removal deletes its own containers, Coolify-created networks and volumes."
+        },
+        "cleanup": {
+          "value": "Yes, on PR/MR close or merge",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "Coolify deletes an automatically created preview after its pull request or merge request is closed or merged."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Docs describe who can trigger previews (Repository members only vs Public), not URL protection."
+        },
+        "license": {
+          "value": "Open source, Apache-2.0",
+          "source": "https://github.com/coollabsio/coolify",
+          "quote": "Apache-2.0",
+          "note": "SPDX from GitHub API."
+        },
+        "pricing": {
+          "value": "Self-hosted free; Cloud $5/mo (2 servers)",
+          "source": "https://coolify.io/pricing",
+          "quote": "Self-hosted Free forever ... $5 /month base price (connect 2 servers) + $3 /month per additional server"
+        },
+        "on_demand_triggers": {
+          "value": "Dashboard 'Deploy preview' / manual preview, REST API, CLI, repo webhook",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "In the Pull requests dialog, select Deploy preview beside each request that needs a preview. ... For a Docker Image application, open Preview Deployments and use Manual preview. ... Creating or redeploying a preview requires deploy:",
+          "note": "CLI: `coolify app previews create <app_uuid> <pr_id>` (coolify.io/docs/cli/command-reference/commands/app/previews-create). The old source URL /docs/applications/ci-cd/github/preview-deploy now 404s."
+        },
+        "data_copy": {
+          "value": "Not documented",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "Use non-production credentials for preview databases, storage, and external services.",
+          "note": "No preview-time DB clone/restore documented; databases are separate resources."
+        },
+        "teardown_hooks": {
+          "value": "Not documented",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "A preview container is temporary, but data written to an external service can remain after Coolify deletes the preview. ... Closing or deleting a preview removes only its own containers and Coolify-created networks and volumes.",
+          "note": "No custom cleanup hook documented."
+        },
+        "multi_repo": {
+          "value": "Previews are per application (one repo)",
+          "source": "https://coolify.io/docs/applications/deployments/preview-deployments",
+          "quote": "A preview deployment runs the code from a pull request or merge request separately from the production application.",
+          "note": "Inferred: previews are a per-application feature and an application has one repository; no multi-repo preview docs."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "no",
+        "own_cloud": "yes",
+        "pr_close": "yes",
+        "expiry": null,
+        "protection": null,
+        "on_demand_triggers": "yes",
+        "data_copy": null,
+        "teardown_hooks": null,
+        "multi_repo": "no"
+      },
+      "caveats": [
+        "Fork PRs are blocked by default ('Repository members only'); docs warn a PR can run code on the deployment server (https://coolify.io/docs/applications/deployments/preview-deployments).",
+        "PRs open before previews were enabled are not auto-deployed (same page).",
+        "GitHub API (2026-10-23): ~63.5k stars, active."
+      ]
+    },
+    {
+      "id": "dokploy",
+      "name": "Dokploy",
+      "category": "self-hosted-paas",
+      "website": "https://dokploy.com",
+      "preview_docs": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+      "feature_name": "Preview Deployments",
+      "github": "https://github.com/Dokploy/dokploy",
+      "last_verified": "2026-10-26",
+      "summary": "Self-hostable PaaS whose GitHub-integrated applications can automatically get a preview deployment per pull request on a generated domain.",
+      "summary_short": "Self-hosted PaaS with per-PR preview deployments for GitHub apps",
+      "facts": {
+        "scope": {
+          "value": "Single application per PR",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "Preview deployments allow you to test and review your application changes in an isolated environment before merging to production.",
+          "note": "Documented under Applications; Docker Compose previews not documented."
+        },
+        "hosting": {
+          "value": "Self-hosted, or Dokploy Cloud managing your servers",
+          "source": "https://dokploy.com/pricing",
+          "quote": "Self Hosted Install on-prem or in your own cloud"
+        },
+        "git": {
+          "value": "GitHub only",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "Preview deployments are a powerful feature specifically designed for applications with GitHub integration."
+        },
+        "trigger": {
+          "value": "PR opened against target branch; optional label filter",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "preview deployments are automatically created whenever a pull request is opened against your target branch"
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Docs do not describe per-preview databases."
+        },
+        "cleanup": {
+          "value": "Yes, on PR close/merge",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "Clean up when the pull request is closed or merged"
+        },
+        "access": {
+          "value": "Inherits app's security/redirect config; traefik.me URL",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "If you have security or redirects created in your application, it will inherit the same configuration for the preview deployment."
+        },
+        "license": {
+          "value": "Open-core: Apache-2.0 plus proprietary directory",
+          "source": "https://github.com/Dokploy/dokploy/blob/canary/LICENSE.MD",
+          "quote": "All content that resides under a \"/proprietary\" directory of this repository, if that directory exists, is licensed under the license defined in \"LICENSE_PROPRIETARY\". * Content outside of the above mentioned directories ... is available under the \"Apache License 2.0\""
+        },
+        "pricing": {
+          "value": "Self-hosted free; Cloud from $4.50/mo per server",
+          "source": "https://dokploy.com/pricing",
+          "quote": "Hobby Everything an individual developer needs $ 4.50 /mo per server",
+          "note": "Self-hosted free tier inferred from install docs, not quoted."
+        },
+        "on_demand_triggers": {
+          "value": "PR label opt-in",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "If you only want pull requests with a specific label to create preview deployments, you can specify one or multiple in the preview settings.",
+          "note": "Dokploy's OpenAPI spec has previewDeployment all/one/delete/redeploy but no create endpoint."
+        },
+        "data_copy": {
+          "value": "Not documented",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "Preview deployments are a powerful feature specifically designed for applications with GitHub integration.",
+          "note": "No preview DB clone/restore documented."
+        },
+        "teardown_hooks": {
+          "value": "Not documented",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "Clean up when the pull request is closed or merged",
+          "note": "No custom cleanup hook documented."
+        },
+        "multi_repo": {
+          "value": "Previews are per application (one repo)",
+          "source": "https://docs.dokploy.com/docs/core/applications/preview-deployments",
+          "quote": "Preview deployments are a powerful feature specifically designed for applications with GitHub integration.",
+          "note": "Inferred: previews are scoped to a single application; no multi-repo preview docs."
+        }
+      },
+      "capabilities": {
+        "backend": "partial",
+        "database": "no",
+        "own_cloud": "yes",
+        "pr_close": "yes",
+        "expiry": null,
+        "protection": null,
+        "on_demand_triggers": "partial",
+        "data_copy": null,
+        "teardown_hooks": null,
+        "multi_repo": "no"
+      },
+      "caveats": [
+        "Disabled by default; docs recommend not using previews on public repos because outsiders can run builds on your server (https://docs.dokploy.com/docs/core/applications/preview-deployments).",
+        "Default limit of 3 previews per application (same page).",
+        "GitHub API reports license NOASSERTION; LICENSE.MD is Apache-2.0 with a proprietary-directory carve-out. ~38k stars, active."
+      ]
+    },
+    {
+      "id": "qovery",
+      "name": "Qovery",
+      "category": "kubernetes",
+      "website": "https://www.qovery.com",
+      "preview_docs": "https://www.qovery.com/docs/configuration/environment",
+      "feature_name": "Preview Environments",
+      "github": "https://github.com/Qovery/engine",
+      "last_verified": "2026-10-26",
+      "summary": "Platform that operates Kubernetes clusters in your own cloud account; preview environments are clones of a 'blueprint' environment created per pull request.",
+      "summary_short": "Clones a blueprint environment per PR on Kubernetes in your cloud account",
+      "facts": {
+        "scope": {
+          "value": "Full-stack: apps, databases, Helm charts, Terraform",
+          "source": "https://www.qovery.com/docs/getting-started/guides/use-cases/preview-environments",
+          "quote": "The frontend, backend, PostgreSQL and Redis instances are cloned!"
+        },
+        "hosting": {
+          "value": "BYOC (your AWS/GCP/Azure/Scaleway account); BYOK",
+          "source": "https://www.qovery.com/pricing",
+          "quote": "No. Your apps run in your own AWS, GCP, Azure or Scaleway account, on infrastructure you own. Qovery is the execution layer on top, it operates what you already run and does not host it."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket",
+          "source": "https://www.qovery.com/docs/getting-started/basic-concepts",
+          "quote": "Qovery fetches your code from Git (GitHub, GitLab, Bitbucket) based on the branch configured for your environment"
+        },
+        "trigger": {
+          "value": "PR to base branch, or /qovery preview PR comment; CLI",
+          "source": "https://www.qovery.com/docs/configuration/environment",
+          "quote": "Qovery automatically creates a Preview Environment for every pull request targeting your base branch. ... Developers manually trigger Preview Environment creation by commenting on pull requests."
+        },
+        "databases": {
+          "value": "Cloned or shared per preview; seeding via Lifecycle Jobs",
+          "source": "https://www.qovery.com/docs/configuration/environment",
+          "quote": "Optionally include databases (clones or shared) ... Populate Preview Environment databases with test data using Lifecycle Jobs."
+        },
+        "cleanup": {
+          "value": "Yes, on PR merge/close; optional inactivity expiry",
+          "source": "https://www.qovery.com/docs/getting-started/guides/use-cases/preview-environments",
+          "quote": "Qovery keeps your preview environments up to date on every commit and automatically destroys them when the original pull request is merged or closed. You can also set up an expiry time to automatically clean up preview environments after a period of inactivity."
+        },
+        "access": {
+          "value": "Public by default; IP allowlist and basic auth options",
+          "source": "https://www.qovery.com/docs/configuration/service-advanced-settings",
+          "quote": "Allows you to specify IP CIDR ranges allowed to access your service. Use this for IP whitelisting. ... Default Value: 0.0.0.0/0"
+        },
+        "license": {
+          "value": "Proprietary platform; engine is GPL-3.0",
+          "source": "https://github.com/Qovery/engine/blob/engine-public/LICENSE",
+          "quote": "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007",
+          "note": "Only the Qovery engine repo is open source; the hosted control plane/console is commercial."
+        },
+        "pricing": {
+          "value": "From $299/mo (billed yearly); 14-day free trial",
+          "source": "https://www.qovery.com/pricing",
+          "quote": "Starter For startups shipping their first production app on their own cloud $299 per month Start 14-days free trial Billed yearly"
+        },
+        "isolation": {
+          "value": "Namespace per environment",
+          "source": "https://www.qovery.com/docs/configuration/environment",
+          "quote": "An environment is a group of applications, databases, and services running within the same Kubernetes namespace."
+        },
+        "on_demand_triggers": {
+          "value": "PR comment (/qovery preview), CLI/API environment clone, Console clone",
+          "source": "https://www.qovery.com/docs/configuration/environment",
+          "quote": "Developers manually trigger Preview Environment creation by commenting on pull requests. ... Developers comment /qovery preview on PRs to trigger creation ... Click the Clone button in environment settings",
+          "note": "CLI path: 'qovery environment clone' clones an environment (https://www.qovery.com/docs/cli/commands/environment); the E2E guide uses it from GitHub Actions to create ephemeral environments (https://www.qovery.com/docs/getting-started/guides/use-cases/e2e-testing). No label, cron or webhook trigger documented."
+        },
+        "data_copy": {
+          "value": "No; DB clone copies config only, seed via Lifecycle Jobs",
+          "source": "https://www.qovery.com/docs/configuration/database",
+          "quote": "Note that only the instance configuration will be copied, not the data contained within the database.",
+          "note": "Preview databases can be cloned (config only) or shared with the blueprint; data comes from seeding: 'Populate Preview Environment databases with test data using Lifecycle Jobs.' (https://www.qovery.com/docs/configuration/environment). Container databases 'have no automated backups or snapshots'."
+        },
+        "teardown_hooks": {
+          "value": "Lifecycle Job on Delete event",
+          "source": "https://www.qovery.com/docs/configuration/lifecycle-job",
+          "quote": "A Lifecycle Job is a Kubernetes job that is triggered by environment lifecycle events (deploy, stop, or delete). ... Delete Event : Triggered when the environment is deleted. Use for: Cleaning up external resources Deleting cloud resources"
+        },
+        "multi_repo": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Only evidence is an archived 2022 community-forum answer, not vendor documentation."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "yes",
+        "pr_close": "yes",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "no",
+        "teardown_hooks": "yes",
+        "multi_repo": null
+      },
+      "caveats": [
+        "Cloud compute for previews is billed by your own cloud provider, on top of the Qovery subscription (https://www.qovery.com/pricing).",
+        "Qovery recommends running previews on a separate cluster from production (https://www.qovery.com/docs/getting-started/guides/use-cases/preview-environments)."
+      ]
+    },
+    {
+      "id": "bunnyshell",
+      "name": "Bunnyshell",
+      "category": "kubernetes",
+      "website": "https://www.bunnyshell.com",
+      "preview_docs": "https://documentation.bunnyshell.com/docs/quickstart-ephemeral-environments",
+      "feature_name": "Ephemeral Environments",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Environment-as-a-service that deploys environments defined in bunnyshell.yaml (Compose, Helm, manifests, Terraform) to Kubernetes clusters; ephemeral environments are copies of a primary environment created per pull request.",
+      "summary_short": "Ephemeral copies of a primary environment per PR on your Kubernetes clusters",
+      "facts": {
+        "scope": {
+          "value": "Full-stack: Docker Compose, Helm, K8s manifests, Terraform",
+          "source": "https://documentation.bunnyshell.com/docs/environment-workflows-destroy",
+          "quote": "all components of kind Helm , KubernetesManifest , GenericComponent are deleted by running their defined scripts / commands from the destroy attribute of each."
+        },
+        "hosting": {
+          "value": "Your Kubernetes cluster (AWS, Azure, GCP, DO, private); trial cluster",
+          "source": "https://documentation.bunnyshell.com/docs/quickstart-ephemeral-environments",
+          "quote": "Bunnyshell Kubernetes Cluster AWS Kubernetes Cluster Azure Kubernetes Cluster GCP Kubernetes Cluster DigitalOcean Kubernetes Cluster Scaleway Kubernetes Cluster DT Cloud Kubernetes Cluster Private Kubernetes Cluster",
+          "note": "Bunnyshell-provided cluster is a playground: 'The Bunnyshell managed cluster should not be used for production workloads' (https://documentation.bunnyshell.com/docs/kubernetes-clusters-bunnyshell)."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket, Azure DevOps (incl. self-hosted)",
+          "source": "https://documentation.bunnyshell.com/docs/git-providers",
+          "quote": "Supported Git Version Control Systems (VCS) GitHub , including self-hosted Gitlab , including self-hosted Bitbucket Azure DevOps including self-hosted"
+        },
+        "trigger": {
+          "value": "PR opened, or API from CI pipeline",
+          "source": "https://documentation.bunnyshell.com/docs/quickstart-ephemeral-environments",
+          "quote": "With Bunnyshell, ephemeral environments are automatically created very simply, either when creating a Pull Request or via API from your current CI/CD pipeline."
+        },
+        "databases": {
+          "value": "Container DB per env; seeding guides; Neon branching connector",
+          "source": "https://documentation.bunnyshell.com/docs/connectors-neon-database",
+          "quote": "Bunnyshell can leverage Neon to create database branches when an Environment is deployed, and have them destroyed when an Environment is deleted from Bunnyshell."
+        },
+        "cleanup": {
+          "value": "Yes, on PR close/merge (configurable)",
+          "source": "https://documentation.bunnyshell.com/docs/git-providers",
+          "quote": "Closed Pull Request - Destroy an ephemeral environment when the Pull Request is closed or merged."
+        },
+        "access": {
+          "value": "Public by default; IP allowlist via security.access",
+          "source": "https://documentation.bunnyshell.com/docs/ref-envyaml-definition-security",
+          "quote": "For example, you can have a non-public environment, that can be accessed only from certain IP ranges."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": "https://www.bunnyshell.com/pricing/",
+          "quote": "Startup Only pay for what you use. No contracts, no capacity planning. $0.007 / min per env",
+          "note": "Commercial SaaS; no open-source license published for the platform."
+        },
+        "pricing": {
+          "value": "$0.007 per env-minute (Startup); 14-day free trial",
+          "source": "https://www.bunnyshell.com/pricing/",
+          "quote": "14-day free trial Startup Only pay for what you use. No contracts, no capacity planning. $0.007 / min per env Pay-as-you-go. No contracts."
+        },
+        "isolation": {
+          "value": "Namespace per environment (NetworkPolicies need Calico/Cilium)",
+          "source": "https://documentation.bunnyshell.com/docs/kubernetes-clusters-bunnyshell",
+          "quote": "each environment is deployed in its own namespace"
+        },
+        "on_demand_triggers": {
+          "value": "API (from CI), CLI environment clone",
+          "source": "https://documentation.bunnyshell.com/docs/quickstart-ephemeral-environments",
+          "quote": "With Bunnyshell, ephemeral environments are automatically created very simply, either when creating a Pull Request or via API from your current CI/CD pipeline.",
+          "note": "CLI can 'Clone an Environment' and 'Deploy an Environment' (https://documentation.bunnyshell.com/docs/quickstart-cli-api). Git ChatOps comments (/bns:deploy etc.) only act on an existing PR environment, so not counted."
+        },
+        "data_copy": {
+          "value": "Branching via Neon/PlanetScale connectors; RDS snapshot via Terraform",
+          "source": "https://documentation.bunnyshell.com/docs/connectors-neon-database",
+          "quote": "Bunnyshell can leverage Neon to create database branches when an Environment is deployed, and have them destroyed when an Environment is deleted from Bunnyshell.",
+          "note": "Copying existing data relies on a third-party database service (Neon, PlanetScale) through Bunnyshell-provided connectors, or on your own Terraform component restoring a cloud snapshot ('you can leverage the create from snapshot cloud feature to seed the database', https://documentation.bunnyshell.com/docs/data-seeding-cloud-managed-database). Container DBs are seeded from dump files. Marked partial because the copy is done by a third-party service; arguably 'yes' if Bunnyshell-built connectors count as first-party."
+        },
+        "teardown_hooks": {
+          "value": "destroy scripts per component",
+          "source": "https://documentation.bunnyshell.com/docs/environment-workflows-destroy",
+          "quote": "all components of kind Helm , KubernetesManifest , GenericComponent are deleted by running their defined scripts / commands from the destroy attribute of each."
+        },
+        "multi_repo": {
+          "value": "Yes; each component sets its own repo",
+          "source": "https://www.bunnyshell.com/per-pr-environments-microservices/",
+          "quote": "When a pull request opens in any connected Git repository, Bunnyshell automatically provisions a complete, isolated environment containing every service in your stack — regardless of which repo each service lives in.",
+          "note": "Vendor guide (May 2026). The docs component reference requires a gitRepo per component ('gitRepo: the URL of the Git repository where the Dockerfile is located', https://documentation.bunnyshell.com/docs/components-docker-image). Services outside the PR repo stay on main or a pinned branch."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "yes",
+        "pr_close": "yes",
+        "expiry": null,
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "partial",
+        "teardown_hooks": "yes",
+        "multi_repo": "yes"
+      },
+      "caveats": [
+        "Ephemeral environments are only created once the primary environment has deployed successfully (https://documentation.bunnyshell.com/docs/quickstart-ephemeral-environments).",
+        "Namespace isolation NetworkPolicies require a CNI such as Calico or Cilium (https://documentation.bunnyshell.com/docs/namespace-isolation)."
+      ]
+    },
+    {
+      "id": "shipyard",
+      "name": "Shipyard",
+      "category": "full-stack",
+      "website": "https://shipyard.build",
+      "preview_docs": "https://docs.stackgen.com/shipyard/getting-started/what-is-shipyard",
+      "feature_name": "Ephemeral environments",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Managed ephemeral-environment platform that builds a full-stack copy of an app from its Docker Compose file for every pull request; acquired by StackGen in 2026.",
+      "summary_short": "Full-stack environment per PR from your Docker Compose file",
+      "facts": {
+        "scope": {
+          "value": "Full-stack from Docker Compose (multiple services)",
+          "source": "https://docs.stackgen.com/shipyard/getting-started/what-is-shipyard",
+          "quote": "Shipyard automatically generates a full-stack ephemeral environment on every pull request"
+        },
+        "hosting": {
+          "value": "Managed (Shipyard Cloud)",
+          "source": "https://shipyard.build/pricing/",
+          "quote": "Resources run in Shipyard Cloud",
+          "note": "Stated for the Startup plan; Enterprise lists 'Remote environments' without further detail."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket",
+          "source": "https://docs.stackgen.com/shipyard/environments/deploy-an-environment",
+          "quote": "assuming you have integrated with GitHub , GitLab , or Bitbucket"
+        },
+        "trigger": {
+          "value": "PR opened; also CLI, API, GitHub Action (Business+)",
+          "source": "https://docs.stackgen.com/shipyard/getting-started/what-is-shipyard",
+          "quote": "It creates ephemeral, on-demand copies of your app every time you open a PR."
+        },
+        "databases": {
+          "value": "Per-env containers; volume snapshots via CLI",
+          "source": "https://docs.stackgen.com/shipyard/environments/cli",
+          "quote": "Load a volume snapshot in an environment"
+        },
+        "cleanup": {
+          "value": "Spun down on merge; idle sleep via Since Last Visit",
+          "source": "https://shipyard.build/blog/heroku-review-apps-vs-shipyard/",
+          "quote": "Our environments are designed to be short-lived, and are automatically spun down upon merge. Shipyard's Since Last Visit (SLV) timeout can be set to spin down environments after a set amount of time has passed without visitors.",
+          "note": "Source is a Shipyard blog post; the current StackGen-hosted docs do not detail teardown."
+        },
+        "access": {
+          "value": "SSO-protected links",
+          "source": "https://docs.stackgen.com/shipyard/getting-started/what-is-shipyard",
+          "quote": "You can share these environments with SSO-enabled links"
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": "https://shipyard.build/pricing/",
+          "quote": "Startup If you're just getting started $500 / month",
+          "note": "Commercial SaaS; no open-source license published."
+        },
+        "pricing": {
+          "value": "From $500/mo for 3 concurrent envs; 30-day free trial",
+          "source": "https://shipyard.build/pricing/",
+          "quote": "Startup If you're just getting started $500 / month Try free for 30 days ✓ 3 Drydocks (concurrent envs)"
+        },
+        "isolation": {
+          "value": "Independent environment per PR (Compose to K8s)",
+          "source": "https://docs.stackgen.com/shipyard/getting-started/what-is-shipyard",
+          "quote": "Each of these environments is independent, meaning that if a new bug or regression is introduced, it will not prevent other tests from running."
+        },
+        "on_demand_triggers": {
+          "value": "PR label opt-in, API, CLI (detached envs)",
+          "source": "https://docs.stackgen.com/shipyard/environments/build-behavior",
+          "quote": "If this is enabled, pull request environments will only be created for pull requests with the labels specified.",
+          "note": "API: POST .../detached-app-build 'Create a brand-new, independent (\"detached\") environment by cloning an existing application build' (docs.stackgen.com/shipyard/environments/api); CLI: `shipyard detached deploy`. Detached environments must be enabled per org. Quote verified against the raw page on 2026-10-26; docs.stackgen.com now blocks automated fetches."
+        },
+        "data_copy": {
+          "value": "Volume snapshots inherited from base env",
+          "source": "https://docs.stackgen.com/shipyard/environments/configuration/volume-management",
+          "quote": "PR environments will automatically inherit the base environment's most recent snapshot."
+        },
+        "teardown_hooks": {
+          "value": "Not documented",
+          "source": "https://docs.stackgen.com/shipyard/environments/configuration/docker-compose",
+          "quote": "shipyard.lifecycle.preStop.exec.command ... Command to run on Kubernetes pre-stop event (as JSON string)",
+          "note": "Only a Kubernetes preStop container hook, available for user-cloud (Launch) environments; it fires on any pod stop, not specifically environment deletion. No dedicated teardown hook documented."
+        },
+        "multi_repo": {
+          "value": "Multi-repo applications",
+          "source": "https://docs.stackgen.com/shipyard/environments/configuration/multi-repo",
+          "quote": "Shipyard supports both mono and multi-repo applications. Each repo within a Shipyard app must have a valid Docker Compose file."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "no",
+        "pr_close": "partial",
+        "expiry": "partial",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "yes",
+        "teardown_hooks": null,
+        "multi_repo": "yes"
+      },
+      "caveats": [
+        "Acquired by StackGen (announced Sep 29, 2026); docs moved to docs.stackgen.com (https://stackgen.com/blog/shipyard-joins-stackgen).",
+        "Plans are limited by 'Drydocks' (concurrent running environments) (https://docs.stackgen.com/shipyard/environments/deploy-an-environment)."
+      ]
+    },
+    {
+      "id": "release",
+      "name": "Release",
+      "category": "full-stack",
+      "website": "https://release.com",
+      "preview_docs": "https://docs.release.com/",
+      "feature_name": "Ephemeral environments",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Environments-as-a-service platform that builds Docker Compose/Helm/static apps into Kubernetes environments in Release's cloud or your own, creating an ephemeral environment per pull request.",
+      "summary_short": "Ephemeral environment per PR on Kubernetes, with datasets from production snapshots",
+      "facts": {
+        "scope": {
+          "value": "Static sites to multi-service apps with cloud dependencies",
+          "source": "https://docs.release.com/",
+          "quote": "Release can build environments in our cloud or yours, from the simplest applications (static JavaScript) to the most complex (microservices with many cloud-native dependencies)."
+        },
+        "hosting": {
+          "value": "Managed (Release cloud) or BYOC (AWS, GCP)",
+          "source": "https://docs.release.com/",
+          "quote": "Release can build environments in our cloud or yours"
+        },
+        "git": {
+          "value": "GitHub, GitLab, Bitbucket (GitHub most complete)",
+          "source": "https://docs.release.com/integrations/source-control-integrations",
+          "quote": "You can integrate Release with GitHub , Bitbucket , and GitLab . GitHub integration includes full support for pull requests, comments, and more."
+        },
+        "trigger": {
+          "value": "PR opened or code push; manual via UI",
+          "source": "https://docs.release.com/",
+          "quote": "These environments can then be automatically generated and updated whenever you push a code change or create a PR. They can also be manually deployed via the Release user interface."
+        },
+        "databases": {
+          "value": "Instant Datasets: pooled DBs from production snapshots",
+          "source": "https://docs.release.com/reference-documentation/instant-datasets-aws",
+          "quote": "With minimal set up, you can have production-replica data available to any of your environments, instantly, regardless of dataset size."
+        },
+        "cleanup": {
+          "value": "Yes, on PR close/merge; default 3-day expiry",
+          "source": "https://docs.release.com/integrations/source-control-integrations/github",
+          "quote": "Closed pull request: Destroy an ephemeral environment when the pull request is closed or merged.",
+          "note": "Expiration: 'By default, ephemeral environments will last for 3 days in Release.' (https://docs.release.com/reference-documentation/environment-expiration)"
+        },
+        "access": {
+          "value": "Public or private (VPC) URLs; route-level auth",
+          "source": "https://docs.release.com/reference-documentation/application-settings/application-template/schema-definition",
+          "quote": "Routes allow for edge routing rewrites, authentication and provide full support for ngnix ingress rules."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": "https://docs.release.com/",
+          "quote": "Request a demo of Release to get started",
+          "note": "Commercial product; no open-source license published."
+        },
+        "pricing": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "release.com/pricing is client-rendered and returned no plan details when fetched; docs mention a Premium plan without prices."
+        },
+        "isolation": {
+          "value": "Namespace per environment",
+          "source": "https://docs.release.com/reference-documentation/application-settings/application-template/schema-definition",
+          "quote": "When it runs, Release will remove your environment from the UI and remove the namespace along with all corresponding objects from Kubernetes."
+        },
+        "on_demand_triggers": {
+          "value": "PR label, REST API, CLI",
+          "source": "https://docs.release.com/reference-documentation/application-settings/github",
+          "quote": "You can integrate your Release account or application with [GitHub labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) to create an environment in Release when you add a label to a pull request.",
+          "note": "CLI: 'By using the `release environments create` command, we can spin up an environment from the Release CLI' (docs.release.com/cli/cli-usage-example); API: 'Create a new environment for a specific app.' (docs.release.com/reference-documentation/release-api/platform-api/environments)."
+        },
+        "data_copy": {
+          "value": "Instant Datasets from RDS snapshots",
+          "source": "https://docs.release.com/reference-documentation/instant-datasets-aws",
+          "quote": "Instant Datasets are a collection of databases that are ready to be used by an ephemeral environment. These datasets are based on the production snapshots created for you by Amazon RDS."
+        },
+        "teardown_hooks": {
+          "value": "Workflow teardown stage",
+          "source": "https://docs.release.com/reference-documentation/workflows-in-release/stages-of-workflows",
+          "quote": "The teardown stage is run when an environment is either expired or deleted. You can use the teardown stage to remove any extra infrastructure, permanent entries, or storage created elsewhere that Release is not aware of."
+        },
+        "multi_repo": {
+          "value": "App Imports",
+          "source": "https://docs.release.com/guides-and-examples/advanced-guides/microservices-architecture",
+          "quote": "our solution to a microservices architecture is the App Imports feature. App Imports creates single-direction dependencies from one application to another with all services being brought up in the same namespace."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "yes",
+        "pr_close": "yes",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "yes",
+        "teardown_hooks": "yes",
+        "multi_repo": "yes"
+      },
+      "caveats": [
+        "Bitbucket and GitLab integrations are described as 'more limited' than GitHub (https://docs.release.com/integrations/source-control-integrations).",
+        "Some plans cannot change ephemeral expiration; Premium can extend or disable it (https://docs.release.com/reference-documentation/environment-expiration)."
+      ]
+    },
+    {
+      "id": "okteto",
+      "name": "Okteto",
+      "category": "kubernetes",
+      "website": "https://www.okteto.com",
+      "preview_docs": "https://www.okteto.com/docs/previews/",
+      "feature_name": "Preview Environments",
+      "github": "https://github.com/okteto/okteto",
+      "last_verified": "2026-10-26",
+      "summary": "Kubernetes development-environment platform (self-hosted or BYOC) whose CI integrations deploy an Okteto manifest into a namespace per pull request.",
+      "summary_short": "Preview namespace per PR from an Okteto manifest, run from CI",
+      "facts": {
+        "scope": {
+          "value": "Full-stack apps defined in Okteto manifest (Compose/Helm/K8s)",
+          "source": "https://www.okteto.com/docs/previews/",
+          "quote": "Okteto deploys your application using your Okteto manifest , creating an isolated environment in response to the CI/CD trigger"
+        },
+        "hosting": {
+          "value": "Self-hosted (Helm) or BYOC (AWS, GCP)",
+          "source": "https://www.okteto.com/pricing/",
+          "quote": "Deployment model Starter Self-Hosted Scale Self-Hosted Enterprise Self-Hosted or BYOC"
+        },
+        "git": {
+          "value": "GitHub, GitLab (Bitbucket, Azure DevOps 'coming soon')",
+          "source": "https://www.okteto.com/docs/previews/",
+          "quote": "When you create or update a PR in GitHub or GitLab, your CI/CD workflow triggers an Okteto Preview Environment automatically"
+        },
+        "trigger": {
+          "value": "PR via CI (GitHub Actions, GitLab CI/CD)",
+          "source": "https://www.okteto.com/docs/previews/",
+          "quote": "When you create or update a PR in GitHub or GitLab, your CI/CD workflow triggers an Okteto Preview Environment automatically"
+        },
+        "databases": {
+          "value": "Deployed per preview; volume snapshots to clone data",
+          "source": "https://www.okteto.com/docs/core/use-volume-snapshots",
+          "quote": "Okteto Volume Snapshots allow you to initialize Persistent Volume Claims (PVCs) with data from a previously created snapshot."
+        },
+        "cleanup": {
+          "value": "CI destroys on PR close; GC sleeps 1h, deletes after 7 days",
+          "source": "https://www.okteto.com/docs/admin/cleanup",
+          "quote": "Preview Environments Sleep period: 1h Delete period: 7 days",
+          "note": "PR-close teardown is done by your CI workflow: 'When you close or merge the PR, your CI/CD workflow destroys the Preview Environment' (https://www.okteto.com/docs/previews/)."
+        },
+        "access": {
+          "value": "Public or private endpoints (Okteto login)",
+          "source": "https://www.okteto.com/docs/core/endpoints/private-endpoints/",
+          "quote": "Private endpoints can only be accessed by Okteto users who have access to your Okteto namespace, and they'll need to provide their credentials before being granted access."
+        },
+        "license": {
+          "value": "Proprietary platform; CLI is Apache-2.0",
+          "source": "https://github.com/okteto/okteto/blob/master/LICENSE",
+          "quote": "Apache License Version 2.0, January 2004",
+          "note": "Only the okteto CLI repo is open source; the platform is commercial."
+        },
+        "pricing": {
+          "value": "Free up to 5 users; Scale/Enterprise per user",
+          "source": "https://www.okteto.com/pricing/",
+          "quote": "Perfect for exploring Okteto with a small team. Free for up to 5 users, no credit card needed."
+        },
+        "isolation": {
+          "value": "Namespace per preview",
+          "source": "https://www.okteto.com/docs/tutorials/preview-environments/",
+          "quote": "A Preview Environment's Namespace is the same as its name, so if you change one, change the other."
+        },
+        "on_demand_triggers": {
+          "value": "CLI (okteto preview deploy, any branch)",
+          "source": "https://www.okteto.com/docs/reference/okteto-cli/",
+          "quote": "Run okteto preview deploy to automatically deploy a Preview Environment for your branch.",
+          "note": "Previews are created by the CLI, which your CI calls on PRs. No built-in label, webhook, schedule or UI create button for previews is documented; the Okteto API is documented to 'List and manage Development and Preview Environments' without a create operation shown."
+        },
+        "data_copy": {
+          "value": "Volume snapshots to initialize PVCs",
+          "source": "https://www.okteto.com/docs/core/use-volume-snapshots",
+          "quote": "Okteto Volume Snapshots allow you to initialize Persistent Volume Claims (PVCs) with data from a previously created snapshot. ... Restoring a database (PostgreSQL, MySQL, etc.) with real data for development and testing",
+          "note": "Docs describe it for Development Environments; previews deploy the same Okteto Manifest. Self-hosted needs a CSI driver with snapshot support; enabled by default on BYOC. Volume snapshot docs describe Development Environments; use for previews is inferred from the shared Okteto Manifest."
+        },
+        "teardown_hooks": {
+          "value": "Manifest destroy section runs on preview destroy",
+          "source": "https://www.okteto.com/docs/reference/okteto-cli/",
+          "quote": "Run okteto preview destroy to destroy a Preview Environment by name. If the Okteto Manifest includes destroy commands, they will be executed as part of this command.",
+          "note": "Manifest: 'Use the destroy section if you create resources outside of your namespace, like clusterroles, or out of the scope of Kubernetes, like s3 buckets or RDS databases.' (https://www.okteto.com/docs/reference/okteto-manifest/)."
+        },
+        "multi_repo": {
+          "value": "Manifest dependencies (other repos)",
+          "source": "https://www.okteto.com/docs/reference/okteto-manifest/",
+          "quote": "A list of repositories you want to deploy as part of your development environment.",
+          "note": "The CLI's okteto preview deploy has a --dependencies flag to 'Force deployment of repositories in the dependencies section' (https://www.okteto.com/docs/reference/okteto-cli/)."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": "yes",
+        "own_cloud": "yes",
+        "pr_close": "partial",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "partial",
+        "data_copy": "partial",
+        "teardown_hooks": "yes",
+        "multi_repo": "yes"
+      },
+      "caveats": [
+        "Pricing is per user, not per environment: 'You pay per user, never per environment or agent.' (https://www.okteto.com/pricing/)",
+        "Previews can be marked Persistent to exempt them from sleep and garbage collection (https://www.okteto.com/docs/admin/previews/)."
+      ]
+    },
+    {
+      "id": "signadot",
+      "name": "Signadot",
+      "category": "kubernetes",
+      "website": "https://www.signadot.com",
+      "preview_docs": "https://www.signadot.com/docs/guides/set-up-pr-sandboxes",
+      "feature_name": "Sandboxes (Pull Request Previews)",
+      "github": "https://github.com/signadot/cli",
+      "last_verified": "2026-10-26",
+      "summary": "Kubernetes operator plus SaaS control plane that creates lightweight 'sandboxes' deploying only changed services and routing requests by header on a shared baseline cluster.",
+      "summary_short": "Deploys only changed services and routes requests on a shared baseline cluster",
+      "facts": {
+        "scope": {
+          "value": "Changed services only; rest served by shared baseline",
+          "source": "https://www.signadot.com/docs/overview",
+          "quote": "Unchanged services are served from the shared cluster, so a sandbox is a lightweight delta, not a full environment clone."
+        },
+        "hosting": {
+          "value": "Your Kubernetes cluster + managed control plane",
+          "source": "https://www.signadot.com/docs/overview",
+          "quote": "Signadot installs into your Kubernetes cluster and connects to a remote control plane."
+        },
+        "git": {
+          "value": "Via CI: GitHub Actions, GitLab, Bitbucket, Jenkins",
+          "source": "https://www.signadot.com/docs/guides/integrate-ci",
+          "quote": "Setting up the Signadot CLI with Bitbucket ... Setting up the Signadot CLI with GitLab",
+          "note": "Docs list GitHub Actions, Bitbucket Pipelines, Jenkins and GitLab integrations, plus generic CI instructions."
+        },
+        "trigger": {
+          "value": "CI pipeline / CLI / MCP; GitHub Action per PR",
+          "source": "https://www.signadot.com/docs/guides/set-up-pr-sandboxes",
+          "quote": "Integrate the template into your CI/CD pipeline to automatically create sandboxes for each pull request."
+        },
+        "databases": {
+          "value": "Temporary schemas/DBs via resource plugins",
+          "source": "https://www.signadot.com/docs/overview",
+          "quote": "These plugins create temporary schemas or databases for sandboxes with minimal overhead, enabling proper isolation of data changes while maintaining efficiency in shared resources."
+        },
+        "cleanup": {
+          "value": "CLI teardown on PR close, TTL, or GitHub App label",
+          "source": "https://www.signadot.com/docs/guides/integrate-ci",
+          "quote": "Once the PR is closed, the sandbox can be torn down. This can be done using the Signadot CLI. Alternatively, you can set a Time To Live (TTL) for the sandbox."
+        },
+        "access": {
+          "value": "Authenticated preview URLs (login or API key)",
+          "source": "https://www.signadot.com/docs/reference/sandboxes/preview-urls",
+          "quote": "All preview endpoints are authenticated and require a Signadot API"
+        },
+        "license": {
+          "value": "Proprietary platform; CLI is Apache-2.0",
+          "source": "https://github.com/signadot/cli/blob/main/LICENSE",
+          "quote": "Apache License Version 2.0, January 2004",
+          "note": "Only the CLI repo is open source; operator/control plane are commercial."
+        },
+        "pricing": {
+          "value": "Free tier (50 sandboxes/mo); Business $250/mo",
+          "source": "https://www.signadot.com/pricing/",
+          "quote": "Sandboxes are billed per creation. Updates to existing Sandboxes don't count toward billing."
+        },
+        "isolation": {
+          "value": "Request-based routing on shared baseline cluster",
+          "source": "https://www.signadot.com/docs/overview",
+          "quote": "Both approaches use standard header propagation protocols like OpenTelemetry or B3 to split traffic between sandbox and baseline environments."
+        },
+        "on_demand_triggers": {
+          "value": "CLI, REST API, MCP server",
+          "source": "https://www.signadot.com/docs/overview",
+          "quote": "Agents interact with Signadot through an MCP server, so any agent running in Cursor, Claude Code, VS Code, or any MCP-compatible environment can spin up sandboxes, run tests, and validate changes as part of its own workflow, without human intervention. ... the CLI for developers and the MCP server for agents",
+          "note": "REST API reference: https://www.signadot.com/docs/api. PR sandboxes themselves are created by your CI (GitHub Action / CLI). The multi-PR tutorial adds PRs to a shared preview via a /epic PR comment, but that is a user-written workflow."
+        },
+        "data_copy": {
+          "value": "Copy-on-write branch via Neon/Xata resource plugins",
+          "source": "https://www.signadot.com/docs/concepts/resources",
+          "quote": "A copy-on-write branch of a Neon or Xata database ... A branch starts with all of the parent's schema and data, but writes to it never reach the parent.",
+          "note": "Requires the database to run on a third-party branching service (Neon, Xata). Otherwise sandboxes share the baseline DB or get temporary schemas/databases from resource plugins."
+        },
+        "teardown_hooks": {
+          "value": "Resource plugin delete steps",
+          "source": "https://www.signadot.com/docs/concepts/resources",
+          "quote": "It is created when the sandbox is created, and destroyed when the sandbox is deleted, including when the sandbox's TTL expires. ... Resources are created and deleted by resource plugins . A plugin is a short YAML spec plus the scripts that create and delete one kind of resource."
+        },
+        "multi_repo": {
+          "value": "Route groups join sandboxes from several PRs/repos",
+          "source": "https://www.signadot.com/docs/tutorials/multi-pr-feature-testing",
+          "quote": "a route group joins the sandboxes under one routing key, so one preview URL sends requests through all of them ... Each service repository runs its own copy with SERVICE set to the service it builds; in a monorepo like HotROD, detect the changed service instead.",
+          "note": "Unchanged services come from the shared baseline regardless of repo."
+        }
+      },
+      "capabilities": {
+        "backend": "partial",
+        "database": "yes",
+        "own_cloud": "yes",
+        "pr_close": "partial",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "partial",
+        "teardown_hooks": "yes",
+        "multi_repo": "yes"
+      },
+      "caveats": [
+        "Request isolation requires header propagation (OpenTelemetry/B3) through your services; routing via built-in devmesh or Istio/Linkerd (https://www.signadot.com/docs/overview).",
+        "Free Starter plan: 50 sandboxes/month, 1 Kubernetes cluster (https://www.signadot.com/pricing/)."
+      ]
+    },
+    {
+      "id": "garden",
+      "name": "Garden",
+      "category": "open-source-tool",
+      "website": "https://garden.io",
+      "preview_docs": "https://docs.garden.io/overview/use-cases/on-demand-preview-envs",
+      "feature_name": "Isolated On-Demand Preview Environments",
+      "github": "https://github.com/garden-io/garden",
+      "last_verified": "2026-10-26",
+      "summary": "Open-source DevOps automation CLI that re-uses Dockerfiles, manifests and Helm charts to deploy isolated environments into namespaces on a remote Kubernetes cluster, typically run from CI per pull request.",
+      "summary_short": "CLI that deploys an isolated namespace per PR from your existing Dockerfiles and manifests",
+      "facts": {
+        "scope": {
+          "value": "Full-stack K8s apps (Dockerfiles, manifests, Helm)",
+          "source": "https://docs.garden.io/overview/use-cases/on-demand-preview-envs",
+          "quote": "Garden lets them re-use these resources to create isolated preview environments on-demand"
+        },
+        "hosting": {
+          "value": "Self-hosted (your Kubernetes cluster); optional Garden Cloud",
+          "source": "https://docs.garden.io/overview/use-cases/on-demand-preview-envs",
+          "quote": "Developers run the `garden deploy` command from their laptops to create a preview environment in their own namespace in the team's remote Kubernetes cluster."
+        },
+        "git": {
+          "value": "Any (driven from your CI pipeline)",
+          "source": "https://docs.garden.io/overview/use-cases/on-demand-preview-envs",
+          "quote": "Garden can be run from CI pipelines to create isolated preview environments with each pull request, using e.g. the pull request number to isolate the environment."
+        },
+        "trigger": {
+          "value": "CI job or CLI (garden deploy)",
+          "source": "https://docs.garden.io/overview/use-cases/on-demand-preview-envs",
+          "quote": "For example, you may have a CI job that runs `garden deploy --env preview`."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Preview docs do not describe per-preview database provisioning or cloning."
+        },
+        "cleanup": {
+          "value": "Beta: inactivity pause/cleanup agent (paid Garden Cloud)",
+          "source": "https://docs.garden.io/using-garden-with/kubernetes/automatic-environment-cleanup",
+          "quote": "The Automatic Environment Cleanup (AEC) feature allows you to automatically clean up or pause environments in your Kubernetes cluster after a period of inactivity or on a scheduled basis.",
+          "note": "Requires Garden 0.14.10+ and 'Garden Cloud account with a paid subscription'; feature is in beta."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Preview docs do not describe URL protection; depends on your cluster ingress."
+        },
+        "license": {
+          "value": "Open source, MPL-2.0",
+          "source": "https://github.com/garden-io/garden/blob/main/LICENSE.md",
+          "quote": "Mozilla Public License Version 2.0"
+        },
+        "pricing": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No pricing page found (garden.io redirects to docs.garden.io); CLI is free/open source, AEC needs a paid Garden Cloud subscription."
+        },
+        "isolation": {
+          "value": "Namespace per environment (templated per user/PR)",
+          "source": "https://docs.garden.io/overview/use-cases/on-demand-preview-envs",
+          "quote": "Garden's powerful templating engine ensures that namespaces and hostnames are unique across users and CI runs"
+        }
+      },
+      "caveats": [
+        "garden.io now redirects to docs.garden.io; releases continue (0.13.65 published 2026-08-24 per GitHub releases).",
+        "A tool rather than a platform: you supply the cluster, CI wiring and ingress."
+      ]
+    },
+    {
+      "id": "vcluster-platform",
+      "name": "vCluster Platform (Loft)",
+      "category": "kubernetes",
+      "website": "https://www.vcluster.com",
+      "preview_docs": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+      "feature_name": "Preview environments (tenant cluster per PR)",
+      "github": "https://github.com/loft-sh/vcluster",
+      "last_verified": "2026-10-26",
+      "summary": "Virtual-cluster platform; its documented preview workflow uses GitHub Actions to create a virtual (tenant) Kubernetes cluster per pull request on a shared host cluster, with sleep mode for idle environments.",
+      "summary_short": "Virtual Kubernetes cluster per PR, with sleep mode for idle previews",
+      "facts": {
+        "scope": {
+          "value": "Any Kubernetes workloads inside a virtual cluster",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "The example creates a new tenant cluster for each pull request and installs Argo CD into it as a stand-in workload."
+        },
+        "hosting": {
+          "value": "Your clusters; platform self-hosted or vCluster Cloud",
+          "source": "https://www.vcluster.com/pricing",
+          "quote": "With vCluster Cloud, vCluster hosts the platform for you, while your host and virtual clusters still run in your infrastructure."
+        },
+        "git": {
+          "value": "GitHub (documented via GitHub Actions); CI-driven",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "This guide shows how to use vCluster and GitHub Actions to deploy preview environments on every pull request."
+        },
+        "trigger": {
+          "value": "CI workflow on pull request (vcluster CLI)",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "On every pull request, this workflow creates a tenant cluster, installs Argo CD, and exposes it through an ingress."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Preview guide does not cover database provisioning or seeding."
+        },
+        "cleanup": {
+          "value": "CI deletes on PR close/merge; auto-sleep and auto-delete",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "Create a separate workflow that deletes the tenant cluster as soon as the pull request is closed or merged",
+          "note": "Platform also supports inactivity auto-delete: 'Auto-delete permanently deletes a tenant cluster after an inactivity period.' (https://www.vcluster.com/docs/platform/use-platform/virtual-clusters/key-features/sleep-mode)"
+        },
+        "access": {
+          "value": "Optional ingress auth limited to platform users",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "enable ingress authentication in the template's advanced options, to allow only users with access to your platform instance to reach the preview environments."
+        },
+        "license": {
+          "value": "vCluster OSS Apache-2.0; Platform proprietary",
+          "source": "https://github.com/loft-sh/vcluster/blob/main/LICENSE",
+          "quote": "Apache License Version 2.0, January 2004",
+          "note": "Templates, sleep mode and ingress auth used in the preview guide are vCluster Platform features."
+        },
+        "pricing": {
+          "value": "OSS and Free tier; Enterprise custom (Auto Sleep)",
+          "source": "https://www.vcluster.com/pricing",
+          "quote": "Enterprise Custom Deploy mission-critrical virtual clusters at enterprise scale with maximum confidence."
+        },
+        "isolation": {
+          "value": "Virtual cluster (vCluster) per PR",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "This gives you preview environments that are fast to create, isolated like separate Kubernetes clusters, and free of cost while unused."
+        },
+        "on_demand_triggers": {
+          "value": "CLI, UI (from template), Platform API",
+          "source": "https://vcluster.com/docs/platform/use-platform/virtual-clusters/create/create-with-template",
+          "quote": "Tenant clusters referring to templates can be created in the UI or using the vCluster CLI.",
+          "note": "Also a VirtualClusterInstance resource in the Platform API (https://vcluster.com/docs/platform/api/resources/virtualclusterinstance). The PR trigger itself is your CI (GitHub Actions guide)."
+        },
+        "data_copy": {
+          "value": "Snapshot clone of tenant cluster; volumes need Velero",
+          "source": "https://vcluster.com/docs/vcluster/manage/backup-restore/restore",
+          "quote": "You can use snapshots to clone an existing tenant cluster and create a new tenant cluster from that snapshot. When creating a new tenant cluster from a snapshot, it also restores all workloads in the tenant cluster.",
+          "note": "Snapshots exclude volume data: 'The vCluster snapshot feature does not back up persistent volumes. To back up persistent volumes, use the Velero backup method.' (https://vcluster.com/docs/vcluster/manage/backup-restore/backup). Database data in PVCs therefore needs third-party Velero."
+        },
+        "teardown_hooks": {
+          "value": "Your CI deletes the tenant cluster on PR close",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "Create a separate workflow that deletes the tenant cluster as soon as the pull request is closed or merged",
+          "note": "No built-in pre-delete hook or teardown job found; custom cleanup would go in that CI workflow."
+        },
+        "multi_repo": {
+          "value": "Not documented",
+          "source": null,
+          "quote": null,
+          "note": "The preview guide installs a stand-in workload and says to add an Argo CD Application 'that points at your repository'; deploying services from multiple repos into one tenant cluster is not documented (a tenant cluster is a generic Kubernetes cluster, so it is plausible but unverified)."
+        }
+      },
+      "capabilities": {
+        "backend": "yes",
+        "database": null,
+        "own_cloud": "yes",
+        "pr_close": "partial",
+        "expiry": "yes",
+        "protection": "yes",
+        "on_demand_triggers": "yes",
+        "data_copy": "partial",
+        "teardown_hooks": "partial",
+        "multi_repo": null
+      },
+      "caveats": [
+        "Free plan covers 'Unlimited virtual clusters for up to 64 CPUs or 32 GPUs'; Auto Sleep is listed under Enterprise (https://www.vcluster.com/pricing).",
+        "Previews are a documented recipe (GitHub Actions + CLI), not a turnkey PR integration."
+      ]
+    },
+    {
+      "id": "pullpreview",
+      "name": "PullPreview",
+      "category": "open-source-tool",
+      "website": "https://pullpreview.com",
+      "preview_docs": "https://github.com/pullpreview/action",
+      "feature_name": "PullPreview GitHub Action",
+      "github": "https://github.com/pullpreview/action",
+      "last_verified": "2026-10-26",
+      "summary": "GitHub Action that provisions a VM in your own AWS Lightsail or Hetzner account per labelled PR and deploys the app with Docker Compose or Helm.",
+      "summary_short": "GitHub Action that runs a labelled PR on a VM in your AWS Lightsail or Hetzner account",
+      "facts": {
+        "scope": {
+          "value": "Full-stack Docker Compose apps; Helm charts",
+          "source": "https://github.com/pullpreview/action",
+          "quote": "It can work with any application that has a valid Docker Compose file. Also supports Helm charts."
+        },
+        "hosting": {
+          "value": "BYOC: AWS Lightsail or Hetzner",
+          "source": "https://github.com/pullpreview/action",
+          "quote": "PullPreview supports Lightsail and Hetzner while keeping your code and infrastructure under your control."
+        },
+        "git": {
+          "value": "GitHub only",
+          "source": "https://github.com/pullpreview/action",
+          "quote": "A GitHub Action for running live preview environments for pull requests in your own cloud account."
+        },
+        "trigger": {
+          "value": "Adding a label to a PR",
+          "source": "https://github.com/pullpreview/action",
+          "quote": "Adding the label triggers the deployment."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No per-preview database feature documented; databases run as Compose services on the preview VM."
+        },
+        "cleanup": {
+          "value": "On label removal; optional TTL",
+          "source": "https://github.com/pullpreview/action",
+          "quote": "When the label is removed, the preview environment is automatically destroyed.",
+          "note": "action.yml also has a `ttl` input: \"Maximum time to live for deployments (e.g. 10h, 5d, infinite)\" (https://github.com/pullpreview/action/blob/master/action.yml)."
+        },
+        "access": {
+          "value": "Optional IP/CIDR allowlist; HTTPS via Let's Encrypt",
+          "source": "https://github.com/pullpreview/action/blob/master/action.yml",
+          "quote": "The IP address, or range of IP addresses in CIDR notation, that are allowed to connect to the instance"
+        },
+        "license": {
+          "value": "Source-available (Prosperity Public License 3.0.0)",
+          "source": "https://github.com/pullpreview/action/blob/master/LICENSE",
+          "quote": "This license allows you to use and share this software for noncommercial purposes for free and to try this software for commercial purposes for thirty days."
+        },
+        "pricing": {
+          "value": "300€/year per org for commercial use, plus your cloud costs",
+          "source": "https://pullpreview.com/",
+          "quote": "300€ / year, per organization"
+        }
+      },
+      "caveats": [
+        "The license is not OSI open source. It's the Prosperity Public License 3.0.0, and commercial use needs a paid license (https://pullpreview.com/). The GitHub API reports the license as NOASSERTION."
+      ],
+      "repo": {
+        "stars": 203,
+        "license": "NOASSERTION",
+        "pushed_at": "2026-09-10T07:39:06Z",
+        "archived": false
+      }
+    },
+    {
+      "id": "argo-cd-pr-generator",
+      "name": "Argo CD ApplicationSet Pull Request generator",
+      "category": "open-source-tool",
+      "website": "https://argo-cd.readthedocs.io",
+      "preview_docs": "https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/",
+      "feature_name": "Pull Request Generator",
+      "github": "https://github.com/argoproj/argo-cd",
+      "last_verified": "2026-10-26",
+      "summary": "Argo CD ApplicationSet generator that polls (or takes webhooks from) a Git host for open pull requests and templates one Argo CD Application per matching PR on your Kubernetes cluster.",
+      "summary_short": "Argo CD generator that creates one Application per open PR",
+      "facts": {
+        "scope": {
+          "value": "Any Kubernetes manifests/Helm/Kustomize per PR",
+          "source": "https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/",
+          "quote": "This fits well with the style of building a test environment when you create a pull request."
+        },
+        "hosting": {
+          "value": "Self-hosted on your Kubernetes cluster",
+          "source": "https://argo-cd.readthedocs.io/en/stable/",
+          "quote": "Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes."
+        },
+        "git": {
+          "value": "GitHub, GitLab, Gitea, Bitbucket Server/Cloud, Azure DevOps",
+          "source": "https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/",
+          "quote": "Specify the organization, project and repository from which you want to fetch pull requests.",
+          "note": "The docs have one section per provider: GitHub, GitLab, Gitea, Bitbucket Server, Bitbucket Cloud and Azure DevOps. The quote is from the Azure DevOps section."
+        },
+        "trigger": {
+          "value": "Open PR matching filters (labels, state); polling or webhook",
+          "source": "https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/",
+          "quote": "An Application will be generated when a Pull Request is discovered when the configured criteria is met - i.e. for GitHub when a Pull Request matches the specified `labels` and/or `pullRequestState`."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No database provisioning; anything beyond what the templated manifests define is up to you."
+        },
+        "cleanup": {
+          "value": "Yes, Application removed when PR no longer matches",
+          "source": "https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/",
+          "quote": "Application will be removed when a Pull Request no longer meets the specified criteria."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not handled by the generator. Ingress and auth come from your own manifests."
+        },
+        "license": {
+          "value": "Open source, Apache-2.0",
+          "source": "https://github.com/argoproj/argo-cd/blob/master/LICENSE",
+          "quote": "Apache License Version 2.0, January 2004"
+        },
+        "pricing": {
+          "value": "Free (open source); you run the cluster",
+          "source": "https://github.com/argoproj/argo-cd/blob/master/LICENSE",
+          "quote": "Apache License Version 2.0, January 2004"
+        }
+      },
+      "caveats": [
+        "The generator only creates Argo CD Applications. Building images, DNS/ingress and secrets are up to you. Polling defaults to every 30 minutes unless you configure the ApplicationSet webhook (https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/)."
+      ],
+      "repo": {
+        "stars": 24454,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-23T09:22:36Z",
+        "archived": false
+      }
+    },
+    {
+      "id": "flux-operator-resourceset",
+      "name": "Flux Operator ResourceSets",
+      "category": "open-source-tool",
+      "website": "https://fluxoperator.dev",
+      "preview_docs": "https://fluxoperator.dev/docs/resourcesets/github-pull-requests/",
+      "feature_name": "Ephemeral Environments for Pull Requests (ResourceSet + ResourceSetInputProvider)",
+      "github": "https://github.com/controlplaneio-fluxcd/flux-operator",
+      "last_verified": "2026-10-26",
+      "summary": "The Flux Operator (by ControlPlane) uses a ResourceSetInputProvider to discover open PRs/MRs and a ResourceSet to template Flux resources (e.g. a Helm release) per PR on your cluster.",
+      "summary_short": "Flux Operator ResourceSets that template Flux resources per open PR",
+      "facts": {
+        "scope": {
+          "value": "Any Flux-managed Kubernetes resources (e.g. Helm release) per PR",
+          "source": "https://fluxoperator.dev/docs/resourcesets/github-pull-requests/",
+          "quote": "Flux Operator installs a Helm release using the PR number and the commit SHA inputs to deploy the app and chart changes in the cluster."
+        },
+        "hosting": {
+          "value": "Self-hosted on your Kubernetes cluster",
+          "source": "https://github.com/controlplaneio-fluxcd/flux-operator",
+          "quote": "The Flux Operator is a Kubernetes CRD controller that manages the lifecycle of CNCF Flux CD"
+        },
+        "git": {
+          "value": "GitHub, GitLab, Gitea/Forgejo, Azure DevOps",
+          "source": "https://fluxoperator.dev/docs/crd/resourcesetinputprovider/",
+          "quote": "GitHub Pull Requests, GitLab Merge Requests, Azure DevOps Pull Requests, and Gitea/Forgejo Pull Requests."
+        },
+        "trigger": {
+          "value": "PR label filter; polling or webhook Receiver",
+          "source": "https://fluxoperator.dev/docs/resourcesets/github-pull-requests/",
+          "quote": "Another developer reviews the changes and labels the Pull Request with the `deploy/flux-preview` label."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No database provisioning documented; databases must be in the templated resources."
+        },
+        "cleanup": {
+          "value": "Yes, Helm release uninstalled after merge",
+          "source": "https://fluxoperator.dev/docs/resourcesets/github-pull-requests/",
+          "quote": "Once the PR is approved and merged, the Flux Operator uninstalls the Helm release from the cluster."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not handled by the operator. Exposure and auth depend on your ingress configuration."
+        },
+        "license": {
+          "value": "Open source, AGPL-3.0",
+          "source": "https://github.com/controlplaneio-fluxcd/flux-operator/blob/main/LICENSE",
+          "quote": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007"
+        },
+        "pricing": {
+          "value": "Free (open source); you run the cluster",
+          "source": "https://github.com/controlplaneio-fluxcd/flux-operator/blob/main/LICENSE",
+          "quote": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007"
+        }
+      },
+      "caveats": [
+        "This is the Flux Operator (controlplaneio-fluxcd), not core Flux CD. It's licensed AGPL-3.0, unlike Flux itself, which is Apache-2.0.",
+        "A GitLab MR guide also exists: https://fluxoperator.dev/docs/resourcesets/gitlab-merge-requests/"
+      ],
+      "repo": {
+        "stars": 774,
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-10-23T09:24:19Z",
+        "archived": false
+      }
+    },
+    {
+      "id": "vcluster",
+      "name": "vCluster",
+      "category": "open-source-tool",
+      "website": "https://www.vcluster.com",
+      "preview_docs": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+      "feature_name": "Preview environments with GitHub Actions",
+      "github": "https://github.com/loft-sh/vcluster",
+      "last_verified": "2026-10-26",
+      "summary": "Virtual Kubernetes clusters (tenant clusters) running on a host cluster. The docs show GitHub Actions workflows that create one virtual cluster per PR and delete it on close.",
+      "summary_short": "Open-source virtual Kubernetes clusters, usable as one cluster per PR",
+      "facts": {
+        "scope": {
+          "value": "Isolated virtual Kubernetes cluster per PR",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "On every pull request, this workflow creates a tenant cluster, installs Argo CD, and exposes it through an ingress."
+        },
+        "hosting": {
+          "value": "Self-hosted on your Kubernetes cluster",
+          "source": "https://github.com/loft-sh/vcluster",
+          "quote": "Each gets its own API server, CRDs and RBAC, and runs on an existing cluster or standalone on bare metal."
+        },
+        "git": {
+          "value": "GitHub Actions guide documented",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "This guide shows how to use vCluster and GitHub Actions to deploy preview environments on every pull request."
+        },
+        "trigger": {
+          "value": "GitHub Actions on pull request",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "On every pull request, this workflow creates a tenant cluster, installs Argo CD, and exposes it through an ingress."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No per-preview database feature documented."
+        },
+        "cleanup": {
+          "value": "Yes, via a destroy workflow on PR close/merge",
+          "source": "https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments",
+          "quote": "Create a separate workflow that deletes the tenant cluster as soon as the pull request is closed or merged"
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not documented for previews. Exposure is through your ingress."
+        },
+        "license": {
+          "value": "Open source, Apache-2.0 (Platform is commercial)",
+          "source": "https://github.com/loft-sh/vcluster",
+          "quote": "vCluster is licensed under the Apache 2.0 License."
+        },
+        "pricing": {
+          "value": "OSS free; Platform has Free and Enterprise tiers",
+          "source": "https://www.vcluster.com/pricing",
+          "quote": "An actually useful free plan for additional features beyond the open source"
+        }
+      },
+      "caveats": [
+        "The official preview-environments guide logs into vCluster Platform (PLATFORM_URL/ACCESS_KEY) and relies on Platform sleep mode: \"It uses the sleep mode feature of vCluster Platform so that idle environments consume no resources.\" (https://www.vcluster.com/docs/vcluster/third-party-integrations/github-actions/preview-environments). Pure OSS use means scripting the `vcluster` CLI yourself.",
+        "It's a building block (cluster isolation), not a preview-environment product."
+      ],
+      "repo": {
+        "stars": 11353,
+        "license": "Apache-2.0",
+        "pushed_at": "2026-10-23T08:38:43Z",
+        "archived": false
+      }
+    },
+    {
+      "id": "pr-preview-action",
+      "name": "pr-preview-action",
+      "category": "open-source-tool",
+      "website": "https://github.com/rossjrw/pr-preview-action",
+      "preview_docs": "https://github.com/rossjrw/pr-preview-action",
+      "feature_name": "Deploy PR Preview",
+      "github": "https://github.com/rossjrw/pr-preview-action",
+      "last_verified": "2026-10-26",
+      "summary": "GitHub Action that deploys a built static site for each PR into a subdirectory of the repository's GitHub Pages branch and removes it when the PR closes.",
+      "summary_short": "GitHub Action that deploys static-site previews per PR to GitHub Pages",
+      "facts": {
+        "scope": {
+          "value": "Static frontend only (GitHub Pages)",
+          "source": "https://github.com/rossjrw/pr-preview-action",
+          "quote": "GitHub Action that deploys previews of pull requests to GitHub Pages. Works on any repository with a GitHub Pages site."
+        },
+        "hosting": {
+          "value": "Managed (GitHub Pages)",
+          "source": "https://github.com/rossjrw/pr-preview-action",
+          "quote": "Creates and deploys previews of pull requests to your GitHub Pages site"
+        },
+        "git": {
+          "value": "GitHub only; no fork PRs",
+          "source": "https://github.com/rossjrw/pr-preview-action",
+          "quote": "This Action does not currently support deploying previews for PRs from forks"
+        },
+        "trigger": {
+          "value": "pull_request opened/reopened/synchronize",
+          "source": "https://github.com/rossjrw/pr-preview-action",
+          "quote": "it will deploy the preview when the event type is `opened`, `reopened` and `synchronize`, and remove it on `closed` events."
+        },
+        "databases": {
+          "value": "None (static sites)",
+          "source": "https://github.com/rossjrw/pr-preview-action",
+          "quote": "GitHub Action that deploys previews of pull requests to GitHub Pages."
+        },
+        "cleanup": {
+          "value": "Yes, on PR close",
+          "source": "https://github.com/rossjrw/pr-preview-action",
+          "quote": "Cleans up after itself &mdash; removes deployed previews when the pull request is closed"
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not documented in the README. Previews are served from the repository's GitHub Pages site."
+        },
+        "license": {
+          "value": "Open source, MIT",
+          "source": "https://github.com/rossjrw/pr-preview-action/blob/main/LICENSE",
+          "quote": "MIT License"
+        },
+        "pricing": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Pricing isn't documented in the README. The Action is MIT; GitHub Pages/Actions pricing applies."
+        }
+      },
+      "caveats": [
+        "The README quote contains an HTML entity (&mdash;) as written in the source markdown."
+      ],
+      "repo": {
+        "stars": 447,
+        "license": "MIT",
+        "pushed_at": "2026-04-26T00:29:11Z",
+        "archived": false
+      }
+    },
+    {
+      "id": "laravel-harbor",
+      "name": "Laravel Harbor",
+      "category": "open-source-tool",
+      "website": "https://laravel-harbor.com",
+      "preview_docs": "https://laravel-harbor.com/docs/introduction/",
+      "feature_name": "Laravel Harbor (formerly Veyoze)",
+      "github": "https://github.com/mehrancodes/laravel-harbor",
+      "last_verified": "2026-10-26",
+      "summary": "CLI run from GitHub Actions that provisions a per-PR site, database and workers on a Laravel Forge server and tears it down when the PR is merged or closed.",
+      "summary_short": "Per-PR Laravel site and database on a Laravel Forge server",
+      "facts": {
+        "scope": {
+          "value": "Laravel app site + database on a Forge server",
+          "source": "https://laravel-harbor.com/docs/introduction/",
+          "quote": "Harbor seamlessly leverages GitHub Actions to provision a dedicated site on the Laravel Forge server."
+        },
+        "hosting": {
+          "value": "Your own Laravel Forge-managed server",
+          "source": "https://laravel-harbor.com/docs/introduction/",
+          "quote": "Harbor seamlessly leverages GitHub Actions to provision a dedicated site on the Laravel Forge server."
+        },
+        "git": {
+          "value": "GitHub, GitLab (incl. self-hosted), custom; Bitbucket not yet",
+          "source": "https://laravel-harbor.com/docs/features/git-providers/",
+          "quote": "Bitbucket bitbucket not supported yet"
+        },
+        "trigger": {
+          "value": "GitHub Actions on pull request",
+          "source": "https://laravel-harbor.com/docs/introduction/",
+          "quote": "Harbor seamlessly leverages GitHub Actions to provision a dedicated site on the Laravel Forge server."
+        },
+        "databases": {
+          "value": "Yes, per-preview database created (optional)",
+          "source": "https://laravel-harbor.com/docs/configuration/",
+          "quote": "server:create-databases FORGE_DB_CREATION_REQUIRED"
+        },
+        "cleanup": {
+          "value": "Yes, teardown workflow on PR merge/close",
+          "source": "https://laravel-harbor.com/docs/teardown/",
+          "quote": "Running the harbor teardown removes the previously created task scheduler, database, database user, and finally, the site for the related site on Forge."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not documented."
+        },
+        "license": {
+          "value": "Open source, MIT",
+          "source": "https://github.com/mehrancodes/laravel-harbor/blob/main/LICENSE",
+          "quote": "MIT License"
+        },
+        "pricing": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Pricing isn't documented. The tool is MIT; it needs a Laravel Forge account and servers, which are billed by Forge and your host."
+        }
+      },
+      "caveats": [
+        "Laravel/PHP-specific and needs Laravel Forge."
+      ],
+      "repo": {
+        "stars": 102,
+        "license": "MIT",
+        "pushed_at": "2026-09-30T17:02:06Z",
+        "archived": false
+      }
+    },
+    {
+      "id": "gitlab-review-apps",
+      "name": "GitLab Review Apps",
+      "category": "ci-native",
+      "website": "https://about.gitlab.com",
+      "preview_docs": "https://docs.gitlab.com/ci/review_apps/",
+      "feature_name": "Review apps",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "GitLab CI/CD feature built on dynamic environments: a pipeline job deploys each branch/MR to infrastructure you supply, and GitLab tracks the environment, links it in the MR and runs stop jobs.",
+      "summary_short": "Dynamic environment per MR, with stop jobs and auto-stop",
+      "facts": {
+        "scope": {
+          "value": "Whatever your CI deploy job deploys",
+          "source": "https://docs.gitlab.com/ci/review_apps/",
+          "quote": "You must set up the infrastructure to host and deploy the review apps."
+        },
+        "hosting": {
+          "value": "Your own infrastructure (Kubernetes via Auto DevOps optional)",
+          "source": "https://docs.gitlab.com/ci/review_apps/",
+          "quote": "If you have a Kubernetes cluster, you can set up review apps automatically using Auto DevOps."
+        },
+        "git": {
+          "value": "GitLab only",
+          "source": "https://docs.gitlab.com/ci/review_apps/",
+          "quote": "Review apps are temporary testing environments that are created automatically for each branch or merge request."
+        },
+        "trigger": {
+          "value": "CI pipeline per branch or merge request",
+          "source": "https://docs.gitlab.com/ci/review_apps/",
+          "quote": "Built on dynamic environments, review apps provide a unique environment for each branch or merge request."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No built-in per-review-app database. Your deploy scripts would have to provision one."
+        },
+        "cleanup": {
+          "value": "Yes, stop job on MR merge/close; auto_stop_in TTL",
+          "source": "https://docs.gitlab.com/ci/environments/",
+          "quote": "After the time period passes, GitLab automatically starts a job to stop the environment.",
+          "note": "Also: \"When you use the merge request pipelines configuration, the `stop` trigger is automatically enabled.\""
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No built-in URL protection documented for review apps. It depends on your hosting."
+        },
+        "license": {
+          "value": "Open core (MIT core, proprietary ee/)",
+          "source": "https://gitlab.com/gitlab-org/gitlab/-/raw/master/LICENSE",
+          "quote": "All content that resides under the \"ee/\" directory of this repository, if that directory exists, is licensed under the license defined in \"ee/LICENSE\"."
+        },
+        "pricing": {
+          "value": "Available on Free, Premium, Ultimate tiers",
+          "source": "https://docs.gitlab.com/ci/review_apps/",
+          "quote": "Tier: Free, Premium, Ultimate"
+        }
+      },
+      "caveats": [
+        "GitLab orchestrates; it doesn't host. You write the deploy and stop jobs yourself (https://docs.gitlab.com/ci/review_apps/)."
+      ]
+    },
+    {
+      "id": "github-actions-environments",
+      "name": "GitHub Actions deployment environments",
+      "category": "ci-native",
+      "website": "https://github.com",
+      "preview_docs": "https://docs.github.com/en/actions/concepts/workflows-and-actions/deployment-environments",
+      "feature_name": "Environments / Deployments",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "GitHub's environments track deployments and gate jobs with protection rules. They're a building block for PR previews, but don't provision or host anything.",
+      "summary_short": "Deployment tracking, protection rules and scoped secrets; you provision the preview",
+      "facts": {
+        "scope": {
+          "value": "None itself; tracks deployments your workflow performs",
+          "source": "https://docs.github.com/en/actions/concepts/workflows-and-actions/deployment-environments",
+          "quote": "Environments are used to describe a general deployment target like `production`, `staging`, or `development`."
+        },
+        "hosting": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No hosting. You deploy to your own infrastructure or a third-party platform from the workflow."
+        },
+        "git": {
+          "value": "GitHub only",
+          "source": "https://docs.github.com/en/actions/concepts/workflows-and-actions/deployment-environments",
+          "quote": "When a workflow references an environment, the environment will appear in the repository's deployments."
+        },
+        "trigger": {
+          "value": "Workflow referencing an environment (auto-created)",
+          "source": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
+          "quote": "Running a workflow that references an environment that does not exist will create an environment with the referenced name."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not applicable. No provisioning."
+        },
+        "cleanup": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No automatic per-PR environment deletion documented. You can delete environments manually or via the API."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Protection rules gate deployments, not preview URL access."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
+          "quote": "Users with GitHub Free plans can only configure environments for public repositories.",
+          "note": "No license statement on the page. The proprietary value reflects that GitHub is a commercial SaaS; the quote shows plan gating."
+        },
+        "pricing": {
+          "value": "Free plans: public repos only; Pro/Team for private",
+          "source": "https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments",
+          "quote": "Organizations with GitHub Team and users with GitHub Pro can configure environments for private repositories."
+        }
+      },
+      "caveats": [
+        "This isn't a preview-environment system. Teams combine it with a hosting target and their own create/teardown jobs."
+      ]
+    },
+    {
+      "id": "azure-pipelines-review-app",
+      "name": "Azure Pipelines Review App (Kubernetes environments)",
+      "category": "ci-native",
+      "website": "https://azure.microsoft.com/products/devops/pipelines",
+      "preview_docs": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/environments-kubernetes",
+      "feature_name": "Review app",
+      "github": null,
+      "last_verified": "2026-10-26",
+      "summary": "Azure Pipelines can deploy each pull request into a dynamically created Kubernetes namespace resource in an environment and comment the review app link on GitHub.",
+      "summary_short": "Deploys each PR to a dynamically created Kubernetes namespace",
+      "facts": {
+        "scope": {
+          "value": "Kubernetes manifests deployed to a per-PR namespace",
+          "source": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/environments-kubernetes",
+          "quote": "The review app deploys every pull request from your Git repository to a dynamic Kubernetes resource in the environment, and posts a GitHub comment linking to the review app."
+        },
+        "hosting": {
+          "value": "Your Kubernetes cluster (AKS or other)",
+          "source": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/environments-kubernetes",
+          "quote": "You can connect to public or private Kubernetes clusters in Azure Kubernetes Service (AKS) or other cloud providers."
+        },
+        "git": {
+          "value": "PRs from your Git repo; GitHub comment documented",
+          "source": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/environments-kubernetes",
+          "quote": "The review app deploys every pull request from your Git repository to a dynamic Kubernetes resource in the environment, and posts a GitHub comment linking to the review app."
+        },
+        "trigger": {
+          "value": "Pipeline run on PR create/update",
+          "source": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/environments-kubernetes",
+          "quote": "The second job runs when a PR is created or updated to the `main` branch, and deploys against a dynamic review app resource it creates in the cluster on demand."
+        },
+        "databases": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not documented."
+        },
+        "cleanup": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "No automatic namespace cleanup is documented on this page."
+        },
+        "access": {
+          "value": null,
+          "source": null,
+          "quote": null,
+          "note": "Not documented. The example exposes a LoadBalancer IP."
+        },
+        "license": {
+          "value": "Proprietary",
+          "source": null,
+          "quote": null,
+          "note": "Closed-source commercial service; no open-source license is published (inferred)."
+        },
+        "pricing": {
+          "value": "Billed as Azure Pipelines parallel jobs; free tier",
+          "source": "https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/",
+          "quote": "1 free parallel job with 1,800 minutes"
+        }
+      },
+      "caveats": [
+        "Set up through the 'Deploy to Azure Kubernetes Services' template's 'Enable Review App flow for Pull Requests' option (https://learn.microsoft.com/en-us/azure/devops/pipelines/process/environments-kubernetes)."
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "name": "CapRover",
+      "reason": "No preview/PR deployment feature found in official docs (CI/CD integration and getting-started pages have no mention of previews or pull requests).",
+      "source": "https://caprover.com/docs/ci-cd-integration.html"
+    },
+    {
+      "name": "Uffizzi",
+      "reason": "Appears inactive: last commit to the main repo Aug 7, 2024 (v2.4.10); uffizzi.com failed TLS handshake and app.uffizzi.com did not resolve when checked 2026-10-23. No official shutdown notice found; docs.uffizzi.com still online.",
+      "source": "https://github.com/UffizziCloud/uffizzi"
+    },
+    {
+      "name": "Tilt",
+      "reason": "No official preview-environment feature; only a 2022 blog experiment that says Tilt had no plans to build a hosted preview service.",
+      "source": "https://blog.tilt.dev/2022/02/17/preview-environments.html"
+    },
+    {
+      "name": "Kargo",
+      "reason": "Skipped. It's a promotion/release orchestration tool, not a per-PR preview tool.",
+      "source": "https://github.com/akuity/kargo"
+    },
+    {
+      "name": "Preevy",
+      "reason": "Inactive: no commits to the default branch since the v0.0.67 release on 2025-06-30, and its maintainer Livecycle now redirects to an unrelated AI product.",
+      "source": "https://github.com/livecycle/preevy"
+    }
+  ]
+}
